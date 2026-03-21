@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Unleashed - Feel My Skin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #028090;
+            --primary-light: #04a99b;
+            --primary-dark: #016a70;
+            --secondary: #ffd60a;
+            --accent: #ff006e;
+            --success: #2a9d8f;
+            --warning: #e76f51;
+            --danger: #d62828;
+            --light-bg: #f5f5f5;
+            --dark-bg: #1a1a1a;
+            --text-dark: #333;
+            --text-light: #666;
+            --border-color: #ddd;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background: white;
+            line-height: 1.6;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.95;
+            font-style: italic;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+            background: var(--light-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .sidebar h3 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-search {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-search input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: border-color 0.3s;
+        }
+
+        .sidebar-search input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .sidebar-nav a:hover {
+            background: white;
+            border-left-color: var(--primary);
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .sidebar-nav a.active {
+            background: white;
+            border-left-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .section {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .section:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: all 0.3s;
+        }
+
+        .section-header:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .section-toggle {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .section.collapsed .section-toggle {
+            transform: rotate(-90deg);
+        }
+
+        .section-content {
+            padding: 2rem;
+            max-height: 2000px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .section.collapsed .section-content {
+            max-height: 0;
+            padding: 0 2rem;
+        }
+
+        .section-content p {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border-color: var(--success);
+            color: #155724;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-color: var(--warning);
+            color: #856404;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            border-color: var(--danger);
+            color: #721c24;
+        }
+
+        .alert-icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .step {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .step h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .step p {
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .step code {
+            background: white;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent);
+        }
+
+        .screenshot {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .screenshot img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+        }
+
+        .screenshot img:hover {
+            box-shadow: var(--shadow-lg);
+            transform: scale(1.02);
+        }
+
+        .screenshot-caption {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tr:hover {
+            background: var(--light-bg);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 4px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .lightbox-close:hover {
+            color: var(--secondary);
+        }
+
+        /* Lists */
+        .content-list {
+            padding-left: 1.5rem;
+        }
+
+        .content-list li {
+            margin-bottom: 0.75rem;
+            line-height: 1.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: auto;
+            }
+
+            .header {
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .header p {
+                font-size: 0.9rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .section-content {
+                padding: 1rem;
+            }
+
+            .sidebar {
+                padding: 1rem;
+            }
+
+            .sidebar-search input {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .sidebar, .header, .lightbox {
+                display: none !important;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+                gap: 0;
+            }
+
+            .section {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #999;
+            }
+
+            .section-content {
+                max-height: none !important;
+            }
+
+            .section.collapsed .section-content {
+                display: block !important;
+                padding: 2rem;
+            }
+
+            body {
+                margin: 0;
+                padding: 1cm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>📘 Guide Unleashed - Feel My Skin</h1>
+        <p>Guide interactif pour la gestion des stocks et des commandes (Interactive guide for inventory and order management)</p>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <h3>Navigation</h3>
+            <div class="sidebar-search">
+                <input type="text" id="searchInput" placeholder="Rechercher... (Search)">
+            </div>
+            <ul class="sidebar-nav" id="navList">
+                <li><a href="#intro" class="nav-link active">Introduction</a></li>
+                <li><a href="#products" class="nav-link">Gestion des Produits</a></li>
+                <li><a href="#purchase" class="nav-link">Commandes Fournisseurs</a></li>
+                <li><a href="#sales" class="nav-link">Commandes Clients</a></li>
+                <li><a href="#stock-adjust" class="nav-link">Ajustements de Stock</a></li>
+                <li><a href="#warehouse" class="nav-link">Transferts entre Entrepôts</a></li>
+                <li><a href="#daily" class="nav-link">Vérifications Quotidiennes</a></li>
+                <li><a href="#critical-rules" class="nav-link">Règles Critiques</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Section 1: Introduction -->
+            <section class="section" id="intro">
+                <div class="section-header">
+                    <h2>Introduction - À Propos d'Unleashed</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Unleashed est un système de gestion des stocks (Inventory Management System) utilisé par Feel My Skin pour:</p>
+                    <ul class="content-list">
+                        <li><strong>Suivre les niveaux de stock</strong> (Track inventory levels) dans 7 entrepôts français et roumains</li>
+                        <li><strong>Gérer les commandes fournisseurs</strong> (Manage purchase orders) auprès de nos suppliers</li>
+                        <li><strong>Traiter les commandes clients</strong> (Process customer orders) pour la vente B2C et B2B</li>
+                        <li><strong>Enregistrer les mouvements</strong> (Record stock movements) : transferts, ajustements, assemblages</li>
+                        <li><strong>Générer des rapports</strong> (Generate reports) pour l'analyse et la planification</li>
+                    </ul>
+
+                    <div class="alert alert-success">
+                        <span class="alert-icon">✓</span>
+                        <div>
+                            <strong>Conseil:</strong> Unleashed est accessible via <code>https://live.unleashedsoftware.com</code>. Utilisez vos identifiants FMS pour vous connecter.
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 2rem; color: var(--primary);">Les 7 Entrepôts de Feel My Skin</h3>
+                    <table>
+                        <tr>
+                            <th>Code (Code)</th>
+                            <th>Localisation (Location)</th>
+                            <th>Type (Type)</th>
+                            <th>Rôle (Role)</th>
+                        </tr>
+                        <tr>
+                            <td><code>DEPOT_FEEL</code></td>
+                            <td>Feel My Skin HQ</td>
+                            <td>Warehouse</td>
+                            <td>Stock de base / Main warehouse</td>
+                        </tr>
+                        <tr>
+                            <td><code>STOK_SHOPIFY</code></td>
+                            <td>Fulfillment Center</td>
+                            <td>Warehouse</td>
+                            <td>Préparation e-commerce / E-commerce fulfillment</td>
+                        </tr>
+                        <tr>
+                            <td><code>CLICHY</code></td>
+                            <td>Clichy, Paris</td>
+                            <td>Store</td>
+                            <td>Boutique physique / Retail store</td>
+                        </tr>
+                        <tr>
+                            <td><code>GAITE</code></td>
+                            <td>Montparnasse, Paris</td>
+                            <td>Store</td>
+                            <td>Boutique physique / Retail store</td>
+                        </tr>
+                        <tr>
+                            <td><code>CHATLET</code></td>
+                            <td>Châtelet, Paris</td>
+                            <td>Store</td>
+                            <td>Boutique physique / Retail store</td>
+                        </tr>
+                        <tr>
+                            <td><code>TRADE_IASI</code></td>
+                            <td>Iași, Romania</td>
+                            <td>Warehouse</td>
+                            <td>Distribution centre roumain / Romanian hub</td>
+                        </tr>
+                        <tr>
+                            <td><code>B2C_IASI</code></td>
+                            <td>Iași, Romania</td>
+                            <td>Fulfillment</td>
+                            <td>Livraisons B2C roumaines / Romanian B2C</td>
+                        </tr>
+                    </table>
+
+                    <div class="screenshot">
+                        <img src="images/01_dashboard.png" alt="Unleashed Dashboard" class="clickable-img">
+                        <div class="screenshot-caption">Tableau de bord principal d'Unleashed / Unleashed main dashboard</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Product Management -->
+            <section class="section" id="products">
+                <div class="section-header">
+                    <h2>Gestion des Produits (Product Management)</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Les produits dans Unleashed incluent tous les articles vendus par Feel My Skin : sérums, crèmes, sets, etc.</p>
+
+                    <div class="step">
+                        <h4>Étape 1: Accéder à la gestion des produits</h4>
+                        <p>Depuis le menu principal, cliquez sur <code>Products</code> (Produits). Vous verrez la liste complète de tous les produits actifs.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/02_products_list.png" alt="Products List" class="clickable-img">
+                        <div class="screenshot-caption">Liste des produits / Products list</div>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 2: Consulter les détails d'un produit</h4>
+                        <p>Cliquez sur le nom du produit pour voir ses détails : code SKU, prix d'achat, prix de vente, description, images, fournisseurs.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/03_product_detail.png" alt="Product Details" class="clickable-img">
+                        <div class="screenshot-caption">Détails d'un produit / Product details</div>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <span class="alert-icon">⚠</span>
+                        <div>
+                            <strong>Attention:</strong> Ne modifiez le SKU ou le code produit que si vous êtes sûr. Cela peut affecter les commandes existantes.
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 3: Ajouter un nouveau produit</h4>
+                        <p>Cliquez sur <code>+ New Product</code>. Remplissez les champs obligatoires : nom, SKU, prix d'achat, prix de vente, fournisseur par défaut.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Informations importantes pour chaque produit</h4>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>SKU (Stock Keeping Unit):</strong> Code unique (ex: SERUM-001)</li>
+                            <li><strong>Barcode:</strong> Code à barres pour scans rapides</li>
+                            <li><strong>Unit of Measure:</strong> Unité (pièce, boîte, carton)</li>
+                            <li><strong>Cost Price:</strong> Prix d'achat auprès du fournisseur</li>
+                            <li><strong>Retail Price:</strong> Prix de vente client</li>
+                            <li><strong>Supplier:</strong> Fournisseur par défaut</li>
+                            <li><strong>Reorder Level:</strong> Stock minimum avant réapprovisionnement</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Purchase Orders -->
+            <section class="section" id="purchase">
+                <div class="section-header">
+                    <h2>Commandes Fournisseurs (Purchase Orders)</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Les commandes fournisseurs (PO) permettent de commander du stock auprès de nos suppliers.</p>
+
+                    <div class="step">
+                        <h4>Étape 1: Accéder aux commandes fournisseurs</h4>
+                        <p>Menu → <code>Purchase Orders</code> pour voir toutes les PO. Vous pouvez filtrer par statut : Open, Placed, Received, Completed.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/07_purchase_orders_list.png" alt="Purchase Orders" class="clickable-img">
+                        <div class="screenshot-caption">Liste des commandes fournisseurs / Purchase orders list</div>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 2: Créer une nouvelle PO</h4>
+                        <p>Cliquez sur <code>+ New Purchase Order</code>:</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Sélectionnez le <strong>Fournisseur (Supplier)</strong></li>
+                            <li>Sélectionnez l'<strong>Entrepôt (Warehouse)</strong> destinataire</li>
+                            <li>Ajoutez les <strong>lignes de produits</strong> (Product lines)</li>
+                            <li>Entrez les <strong>quantités et prix</strong> (Quantities and prices)</li>
+                            <li>Vérifiez le <strong>total</strong> (Total)</li>
+                            <li>Cliquez <code>Save</code></li>
+                        </ol>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/06_nav_purchases.png" alt="Create PO" class="clickable-img">
+                        <div class="screenshot-caption">Création d'une commande fournisseur / Create purchase order</div>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 3: Placer la commande</h4>
+                        <p>Une fois sauvegardée, cliquez <code>Place Order</code> pour envoyer la PO au fournisseur. Le statut passe à "Placed".</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 4: Recevoir le stock</h4>
+                        <p>Quand la commande arrive, cliquez <code>Receive</code>. Unleashed crée alors un reçu (Receipt) pour enregistrer le stock entrant.</p>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <span class="alert-icon">✓</span>
+                        <div>
+                            <strong>Conseil:</strong> Toujours vérifier les quantités reçues par rapport aux quantités commandées. Si une discordance existe, notez-la dans la réception.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Sales Orders -->
+            <section class="section" id="sales">
+                <div class="section-header">
+                    <h2>Commandes Clients (Sales Orders)</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Les commandes clients (SO) enregistrent les ventes auprès des clients B2C et B2B.</p>
+
+                    <div class="step">
+                        <h4>Étape 1: Accéder aux commandes clients</h4>
+                        <p>Menu → <code>Sales Orders</code> pour voir toutes les SO. Filtrez par statut : Open, Completed, Backordered.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/08_sales_orders_list.png" alt="Sales Orders" class="clickable-img">
+                        <div class="screenshot-caption">Liste des commandes clients / Sales orders list</div>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 2: Créer une nouvelle SO</h4>
+                        <p>Cliquez sur <code>+ New Sales Order</code>:</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Sélectionnez le <strong>Client (Customer)</strong></li>
+                            <li>Sélectionnez l'<strong>Entrepôt (Warehouse)</strong> d'expédition</li>
+                            <li>Ajoutez les <strong>lignes de produits</strong></li>
+                            <li>Vérifiez les <strong>disponibilités en stock</strong> (Stock availability)</li>
+                            <li>Définissez la <strong>date de livraison souhaitée</strong> (Desired delivery date)</li>
+                            <li>Cliquez <code>Save</code></li>
+                        </ol>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/08_sales_orders_list.png" alt="Create SO" class="clickable-img">
+                        <div class="screenshot-caption">Création d'une commande client / Create sales order</div>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 3: Préparer et expédier la commande</h4>
+                        <p>Lorsque la commande est prête, cliquez <code>Dispatch</code> ou <code>Ship</code>. Unleashed enregistre le départ du stock et génère un bon d'expédition.</p>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <span class="alert-icon">⚠</span>
+                        <div>
+                            <strong>Important:</strong> Vérifiez toujours que le stock est disponible avant de créer une SO. Si le stock est insuffisant, la commande passera en "Backordered".
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Stock Adjustments -->
+            <section class="section" id="stock-adjust">
+                <div class="section-header">
+                    <h2>Ajustements de Stock (Stock Adjustments)</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Les ajustements permettent de corriger les erreurs de comptage, enregistrer les casses, ou les pertes de stock.</p>
+
+                    <div class="step">
+                        <h4>Étape 1: Accéder aux ajustements</h4>
+                        <p>Menu → <code>Stock</code> → <code>Stock Adjustments</code> pour voir tous les ajustements.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/12_stock_adjustment_detail.png" alt="Stock Adjustments" class="clickable-img">
+                        <div class="screenshot-caption">Ajustements de stock / Stock adjustments</div>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 2: Créer un nouvel ajustement</h4>
+                        <p>Cliquez <code>+ New Adjustment</code>:</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Sélectionnez l'<strong>Entrepôt (Warehouse)</strong></li>
+                            <li>Sélectionnez le <strong>Produit (Product)</strong></li>
+                            <li>Entrez la <strong>quantité ajustée</strong> (positive = ajout, négatif = retrait)</li>
+                            <li>Entrez un <strong>motif (Reason)</strong> : Damage, Shrinkage, Inventory Count, etc.</li>
+                            <li>Cliquez <code>Save</code></li>
+                        </ol>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">⚠</span>
+                        <div>
+                            <strong>Attention:</strong> Les ajustements de stock affectent directement les niveaux et les rapports. Enregistrez toujours un motif clair pour traçabilité.
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 2rem; color: var(--primary);">Motifs courants d'ajustement</h3>
+                    <ul class="content-list">
+                        <li><strong>Inventory Count:</strong> Discordance trouvée lors d'un inventaire physique</li>
+                        <li><strong>Damage:</strong> Produits endommagés découverts</li>
+                        <li><strong>Shrinkage:</strong> Perte non expliquée / Pertes évaluées</li>
+                        <li><strong>Stock Transfer:</strong> Transfert manuel entre entrepôts</li>
+                        <li><strong>Sample:</strong> Prélèvement pour démonstration/test</li>
+                        <li><strong>Return:</strong> Retour client non enregistré en tant que tel</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 6: Warehouse Transfers -->
+            <section class="section" id="warehouse">
+                <div class="section-header">
+                    <h2>Transferts entre Entrepôts (Warehouse Transfers)</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Les transferts permettent de déplacer du stock d'un entrepôt à un autre (ex: du dépôt vers une boutique).</p>
+
+                    <div class="step">
+                        <h4>Étape 1: Accéder aux transferts</h4>
+                        <p>Menu → <code>Stock</code> → <code>Warehouse Transfers</code>.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/13_warehouse_transfers.png" alt="Warehouse Transfers" class="clickable-img">
+                        <div class="screenshot-caption">Transferts entre entrepôts / Warehouse transfers</div>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 2: Créer un nouveau transfert</h4>
+                        <p>Cliquez <code>+ New Transfer</code>:</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Sélectionnez l'<strong>entrepôt source (Source Warehouse)</strong></li>
+                            <li>Sélectionnez l'<strong>entrepôt destination (Destination Warehouse)</strong></li>
+                            <li>Ajoutez les <strong>lignes de produits</strong></li>
+                            <li>Entrez les <strong>quantités à transférer</strong></li>
+                            <li>Cliquez <code>Save</code></li>
+                        </ol>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/13_warehouse_transfers.png" alt="Create Transfer" class="clickable-img">
+                        <div class="screenshot-caption">Création d'un transfert / Create transfer</div>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 3: Confirmer la réception</h4>
+                        <p>Une fois le stock physiquement transféré et reçu, cliquez <code>Receive</code> pour finaliser le transfert. Le stock est alors débité de l'entrepôt source et crédité à la destination.</p>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <span class="alert-icon">✓</span>
+                        <div>
+                            <strong>Conseil:</strong> Planifiez les transferts régulièrement pour équilibrer le stock entre DEPOT_FEEL, les trois boutiques Paris, et les entrepôts roumains.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Daily Checks -->
+            <section class="section" id="daily">
+                <div class="section-header">
+                    <h2>Vérifications Quotidiennes (Daily Checks)</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Chaque jour, vous devriez effectuer certaines vérifications pour maintenir la santé du système Unleashed.</p>
+
+                    <div class="step">
+                        <h4>Matin: Vérifier les commandes en attente (Morning: Check pending orders)</h4>
+                        <p>Ouvrez le <strong>Dashboard</strong> et recherchez:</p>
+                        <ul style="margin-left: 1rem;">
+                            <li>Commandes clients en statut "Open" prêtes à être expédiées</li>
+                            <li>Commandes fournisseurs en attente de réception</li>
+                            <li>Stocks faibles (Stock on-hand proche du Reorder Level)</li>
+                        </ul>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/01_dashboard.png" alt="Daily Dashboard" class="clickable-img">
+                        <div class="screenshot-caption">Tableau de bord quotidien / Daily dashboard view</div>
+                    </div>
+
+                    <div class="step">
+                        <h4>Midi/Après-midi: Confirmer les réceptions (Midday/Afternoon: Confirm receipts)</h4>
+                        <p>Vérifiez les <code>Purchase Orders</code> en statut "Placed". Si les marchandises sont arrivées, cliquez <code>Receive</code> et enregistrez.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Fin de journée: Clôturer les commandes (End of day: Close orders)</h4>
+                        <p>Marquez les commandes expédiées comme <code>Completed</code>. Cela met à jour les statistiques et nettoie la liste des tâches en cours.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/01_dashboard.png" alt="End of Day Checks" class="clickable-img">
+                        <div class="screenshot-caption">Vérifications de fin de journée / End of day checks</div>
+                    </div>
+
+                    <div class="step">
+                        <h4>Hebdomadaire: Rapport de stock (Weekly: Stock report)</h4>
+                        <p>Chaque vendredi, générez un <strong>Stock Report</strong> pour voir le niveau de chaque produit par entrepôt. Identifiez les stocks faibles ou excédentaires.</p>
+                    </div>
+
+                    <h3 style="margin-top: 2rem; color: var(--primary);">Points de contrôle clés</h3>
+                    <ul class="content-list">
+                        <li>✓ Aucune commande en statut "Backorder" depuis plus de 3 jours</li>
+                        <li>✓ Stock minimum (Reorder Level) atteint → Créer une PO</li>
+                        <li>✓ Tous les transferts entre entrepôts confirmés (Received)</li>
+                        <li>✓ Aucune discordance entre Unleashed et le comptage physique</li>
+                        <li>✓ Prix de vente et d'achat à jour dans la fiche produit</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 8: Critical Rules -->
+            <section class="section" id="critical-rules">
+                <div class="section-header">
+                    <h2>Règles Critiques (Critical Rules)</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Ces règles doivent toujours être suivies pour éviter des erreurs coûteuses.</p>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Règle 1: Vérifier le stock avant de vendre</strong><br>
+                            Avant de créer une SO (Sales Order), assurez-vous que le stock est disponible dans le bon entrepôt. Un stock non disponible crée des backlogs.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Règle 2: Ne jamais modifier un SKU produit</strong><br>
+                            Les SKU doivent rester constants. Les modifier affecte tous les historiques. Si une correction est nécessaire, créez un nouveau produit.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Règle 3: Enregistrer les motifs pour tous les ajustements</strong><br>
+                            Chaque ajustement de stock (Damage, Shrinkage, etc.) doit avoir un motif documenté. Cela assure la traçabilité.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Règle 4: Confirmer les réceptions rapidement</strong><br>
+                            Dès que le stock fournisseur est reçu, cliquez "Receive" dans la PO. Cela actualise les niveaux de stock en temps réel.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Règle 5: Utiliser les bons entrepôts</strong><br>
+                            Utilisez toujours le bon code d'entrepôt (CLICHY, GAITE, CHATLET, DEPOT_FEEL, etc.). Une mauvaise sélection crée des discordances.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Règle 6: Ne jamais supprimer une commande</strong><br>
+                            Si une commande est erronée, marquez-la "Cancelled" ou créez une note. Ne la supprimez jamais, car cela perd l'historique.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Règle 7: Vérifier les prix régulièrement</strong><br>
+                            Les prix d'achat et de vente doivent être à jour. Des prix obsolètes mènent à des marges incorrectes.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Règle 8: En cas de doute, contactez un manager</strong><br>
+                            Si quelque chose semble anormal (stock négatif, prix incohérent, transfert bloqué), n'essayez pas de corriger seul. Signalez-le immédiatement.
+                        </div>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/01_dashboard.png" alt="Critical Rules Summary" class="clickable-img">
+                        <div class="screenshot-caption">Résumé des règles critiques / Summary of critical rules</div>
+                    </div>
+
+                    <h3 style="margin-top: 2rem; color: var(--primary);">En cas de problème</h3>
+                    <table>
+                        <tr>
+                            <th>Problème (Problem)</th>
+                            <th>Solution (Solution)</th>
+                        </tr>
+                        <tr>
+                            <td>Stock négatif (-1, -5, etc.)</td>
+                            <td>Créer un ajustement (Adjustment) pour corriger. Vérifier l'historique des mouvements.</td>
+                        </tr>
+                        <tr>
+                            <td>Commande bloquée / Cannot save</td>
+                            <td>Vérifier que tous les champs obligatoires sont remplis. Contacter support si l'erreur persiste.</td>
+                        </tr>
+                        <tr>
+                            <td>Transfert non reçu / Stuck in transit</td>
+                            <td>Aller à la section Warehouse Transfers, trouver le transfert, cliquer "Receive" pour le finaliser.</td>
+                        </tr>
+                        <tr>
+                            <td>Stock différent d'un inventaire physique</td>
+                            <td>Créer un ajustement avec motif "Inventory Count" et enregistrer la différence.</td>
+                        </tr>
+                        <tr>
+                            <td>Fournisseur introuvable</td>
+                            <td>Vérifier l'orthographe. Si absent, créer un nouveau fournisseur via Products → Suppliers.</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            
+        </div>
+    </div>
+
+    <script>
+        // Lightbox functionality
+        function openLightbox(imgSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            lightboxImg.src = imgSrc;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        // Close lightbox on background click
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        // Make all images clickable
+        document.querySelectorAll('.clickable-img').forEach(img => {
+            img.addEventListener('click', function() {
+                openLightbox(this.src);
+            });
+        });
+
+        // Section toggle functionality
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const section = this.closest('.section');
+                section.classList.toggle('collapsed');
+            });
+        });
+
+        // Navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                const sectionId = this.getAttribute('href').substring(1);
+                const section = document.getElementById(sectionId);
+                section.classList.remove('collapsed');
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('keyup', function(e) {
+            const query = e.target.value.toLowerCase();
+            document.querySelectorAll('.section').forEach(section => {
+                const text = section.textContent.toLowerCase();
+                section.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>
