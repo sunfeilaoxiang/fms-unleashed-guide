@@ -456,6 +456,7 @@
             <nav class="sidebar-nav">
                 <li><a href="#intro" class="nav-link">Introduction</a></li>
                 <li><a href="#dashboard" class="nav-link">Dashboard Overview</a></li>
+                <li><a href="#navigation" class="nav-link">Navigation & Search</a></li>
                 <li><a href="#products" class="nav-link">Product Management</a></li>
                 <li><a href="#customers" class="nav-link">Customer & Supplier Setup</a></li>
                 <li><a href="#pricing" class="nav-link">Pricing Configuration</a></li>
@@ -468,6 +469,8 @@
                 <li><a href="#month-end" class="nav-link">Month-End Close</a></li>
                 <li><a href="#daily" class="nav-link">Daily Checks</a></li>
                 <li><a href="#critical-rules" class="nav-link">Critical Rules</a></li>
+                <li><a href="#mistakes" class="nav-link">Common Mistakes & Fixes</a></li>
+                <li><a href="#quick-ref" class="nav-link">Quick Reference Card</a></li>
             </nav>
         </aside>
 
@@ -565,6 +568,49 @@
                 </div>
             </section>
 
+            <!-- Section: Navigation & Search -->
+            <section class="section" id="navigation">
+                <div class="section-header">
+                    <h2>Navigation & Search</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Unleashed has a consistent menu structure and powerful search tools. Learning these will save you significant time every day.</p>
+
+                    <div class="step">
+                        <h4>Main Menu Structure</h4>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Purchases:</strong> Create and manage purchase orders</li>
+                            <li><strong>Inventory:</strong> Manage products, stock levels, and warehouses</li>
+                            <li><strong>Sales:</strong> Create and manage sales orders</li>
+                            <li><strong>Reports:</strong> Run inventory, sales, and purchase reports</li>
+                            <li><strong>Settings:</strong> Configure system options, tax rates, and preferences</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>Quick Actions Sidebar</h4>
+                        <p>The Quick Actions sidebar (usually on the left) provides shortcuts to common tasks: creating a PO, viewing stock on hand, running reports. Use these shortcuts instead of navigating through the full menu.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Searching for Products</h4>
+                        <p>You can search for products in two ways:</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Use the <strong>global Search bar</strong> at the top of the screen — type any part of a product name or code</li>
+                            <li>Go to <code>Inventory → Products</code> and use the column filters to narrow results</li>
+                        </ol>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <span class="alert-icon">✓</span>
+                        <div>
+                            <strong>Tip:</strong> Use the <code>FMSK_</code> prefix to search products quickly. All Feel My Skin product codes start with FMSK_ (e.g., FMSK_11691). This is much faster than searching by product name.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Section 2: Product Management -->
             <section class="section" id="products">
                 <div class="section-header">
@@ -572,11 +618,17 @@
                     <div class="section-toggle">▼</div>
                 </div>
                 <div class="section-content">
-                    <p>Products in Unleashed include all items sold by Feel My Skin: serums, creams, sets, etc. Each product record contains pricing, supplier info, cost allocation, and inventory tracking.</p>
+                    <p>Products in Unleashed include all items sold by Feel My Skin: serums, creams, sets, etc. Each product has multiple tabs containing pricing, supplier info, cost data, and inventory tracking. FMS uses the <code>FMSK_</code> prefix for all product codes (e.g., FMSK_11691).</p>
 
                     <div class="step">
-                        <h4>Step 1: Access Product Management</h4>
-                        <p>From the main menu, click <code>Products</code>. You will see the full list of all active products.</p>
+                        <h4>Creating a New Product</h4>
+                        <ol style="margin-left: 1rem;">
+                            <li>Go to <code>Inventory → Products → Add Product</code></li>
+                            <li>Enter a product code using <code>FMSK_XXXXX</code> format</li>
+                            <li>Enter a product description</li>
+                            <li>By default, products are set as sellable with diminishing type</li>
+                            <li>Save the product</li>
+                        </ol>
                     </div>
 
                     <div class="screenshot">
@@ -584,35 +636,90 @@
                         <div class="screenshot-caption">Products list</div>
                     </div>
 
+                    <h3>Product Record Tabs</h3>
+
                     <div class="step">
-                        <h4>Step 2: View Product Details</h4>
-                        <p>Click on the product name to view its details: SKU code, purchase price, selling price, description, images, suppliers.</p>
+                        <h4>The Details Tab</h4>
+                        <p>Core product information:</p>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Product Code:</strong> Unique identifier (FMSK_XXXXX)</li>
+                            <li><strong>Description:</strong> Product name</li>
+                            <li><strong>Product Group:</strong> Category by brand (e.g., ISNTREE, COSRX)</li>
+                            <li><strong>Units of Measure:</strong> Standard unit (bottle, jar, etc.)</li>
+                            <li><strong>Default Purchase Price:</strong> Standard cost from supplier</li>
+                            <li><strong>Default Sell Price:</strong> Standard retail price</li>
+                            <li><strong>Default Supplier:</strong> Link each product to its primary supplier</li>
+                        </ul>
                     </div>
 
                     <div class="screenshot">
                         <img src="images/03_product_detail.png" alt="Product Details" class="clickable-img">
-                        <div class="screenshot-caption">Product details</div>
+                        <div class="screenshot-caption">Product details — Details tab</div>
                     </div>
 
                     <div class="step">
-                        <h4>Key Information for Each Product</h4>
+                        <h4>The Inventory Tab</h4>
+                        <p>Shows stock levels across all 7 warehouses:</p>
                         <ul style="margin-left: 1rem;">
-                            <li><strong>SKU (Stock Keeping Unit):</strong> Unique code (e.g., SERUM-001) – must match Shopify product ID</li>
-                            <li><strong>Barcode:</strong> Barcode for quick scanning in POS/stores</li>
-                            <li><strong>Unit of Measure:</strong> Unit (piece, box, carton)</li>
-                            <li><strong>Cost Price:</strong> Purchase price from the supplier</li>
-                            <li><strong>Retail Price (Default Sale Price):</strong> Customer selling price used by default</li>
-                            <li><strong>Supplier:</strong> Default supplier for this product</li>
-                            <li><strong>Reorder Level:</strong> Minimum stock before automatic reordering alert</li>
-                            <li><strong>Product Group:</strong> Category for reporting (e.g., "Serums", "Creams", "Sets")</li>
-                            <li><strong>Cost Distribution Method:</strong> MUST be set to "by base quantity" (NOT "by value") – this ensures COGS is calculated correctly</li>
+                            <li><strong>Stock on Hand (SOH):</strong> Total quantity currently in inventory</li>
+                            <li><strong>Available Quantity:</strong> SOH minus allocated stock (reserved for pending orders)</li>
+                            <li><strong>"On Purchase":</strong> Incoming stock from open purchase orders</li>
+                        </ul>
+
+                        <div class="alert alert-success">
+                            <span class="alert-icon">✓</span>
+                            <div>
+                                <strong>Tip:</strong> Always check stock across ALL 7 warehouses before reordering to avoid over-purchasing. A product may show zero in DEPOT_FEEL but have stock sitting in CLICHY or TRADE_IASI.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <h4>The Costs Tab</h4>
+                        <p>Tracks product pricing and inventory valuation:</p>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Average Landed Cost (ALC):</strong> Weighted average cost of your stock — recalculates automatically every time you receipt a new PO</li>
+                            <li><strong>Last Cost:</strong> The price paid in the most recent purchase order</li>
+                        </ul>
+
+                        <div class="alert alert-danger">
+                            <span class="alert-icon">🔴</span>
+                            <div>
+                                <strong>CRITICAL: Cost Distribution Setting</strong><br>
+                                Cost distribution must be set to <strong>"By Base Quantity"</strong>, NOT "By Value". This was confirmed by Charlie Fleet during implementation. Using "By Value" causes incorrect ALC calculations, inflated COGS, and distorted margins.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <h4>The Transactions Tab</h4>
+                        <p>Displays all historical movements for a product:</p>
+                        <ul style="margin-left: 1rem;">
+                            <li>All warehouse transfers</li>
+                            <li>All sales shipments</li>
+                            <li>All purchase receipts</li>
+                            <li>All stock adjustments</li>
+                        </ul>
+                        <p>You can filter by warehouse, date range, and transaction type. Use this tab to investigate stock discrepancies — it's your audit trail.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>The Purchase Tab & Sale Tab</h4>
+                        <p><strong>Purchase Tab:</strong></p>
+                        <ul style="margin-left: 1rem;">
+                            <li>Default supplier for this product</li>
+                            <li>Supplier product code (the SKU assigned by the supplier)</li>
+                            <li>Standard purchase price</li>
+                        </ul>
+                        <p><strong>Sale Tab:</strong></p>
+                        <ul style="margin-left: 1rem;">
+                            <li>Default sell price</li>
+                            <li>Sell price tiers (volume discounts)</li>
+                            <li>FMS may have different prices for boutique vs. Shopify e-commerce channels</li>
                         </ul>
                     </div>
 
-                    <div class="step">
-                        <h4>Step 3: Add a New Product</h4>
-                        <p>Click <code>+ New Product</code>. Fill in the required fields: name, SKU, purchase price, selling price, default supplier, and cost distribution method.</p>
-                    </div>
+                    <h3>Batch Operations</h3>
 
                     <div class="step">
                         <h4>Batch Changing Product Codes</h4>
@@ -625,14 +732,6 @@
                             <li>Verify and click <code>Import</code></li>
                         </ol>
                         <p>This is much faster than changing codes one by one and is essential for syncing Shopify SKUs into Unleashed.</p>
-                    </div>
-
-                    <div class="alert alert-danger">
-                        <span class="alert-icon">🔴</span>
-                        <div>
-                            <strong>CRITICAL: Cost Distribution Setting</strong><br>
-                            The cost distribution method MUST be set to <strong>"by base quantity"</strong>, NOT "by value". This fixes inflated COGS calculations. If you see abnormally high COGS or margin issues, check this setting first.
-                        </div>
                     </div>
 
                     <div class="alert alert-warning">
@@ -976,26 +1075,37 @@
                 <div class="section-content">
                     <p>Purchase orders (POs) allow us to order stock from our suppliers. Properly managing POs ensures timely stock arrivals and accurate inventory levels.</p>
 
-                    <div class="step">
-                        <h4>Step 1: Access Purchase Orders</h4>
-                        <p>Menu → <code>Purchase Orders</code> to view all POs. You can filter by status: Open, Placed, Received, Completed.</p>
-                    </div>
-
-                    <div class="screenshot">
-                        <img src="images/07_purchase_orders_list.png" alt="Purchase Orders" class="clickable-img">
-                        <div class="screenshot-caption">Purchase orders list</div>
-                    </div>
+                    <h3>PO Status Lifecycle</h3>
 
                     <div class="step">
-                        <h4>Step 2: Create a New PO</h4>
-                        <p>Click on <code>+ New Purchase Order</code>:</p>
+                        <h4>Purchase Order Statuses</h4>
+                        <p>Every PO moves through these stages:</p>
+                        <table>
+                            <tr><th>Status</th><th>Meaning</th></tr>
+                            <tr><td><strong>Parked</strong></td><td>Draft — can be edited freely. No commitment to supplier yet.</td></tr>
+                            <tr><td><strong>Placed</strong></td><td>Sent/committed — supplier expects delivery. Cannot change lines.</td></tr>
+                            <tr><td><strong>Custom Statuses</strong></td><td>Extensions of Placed (e.g., "Confirmed", "In Transit") for tracking.</td></tr>
+                            <tr><td><strong>Receipted</strong></td><td>Stock received into inventory. You can still add cost lines.</td></tr>
+                            <tr><td><strong>Completed</strong></td><td>Fully closed — no further changes possible.</td></tr>
+                            <tr><td><strong>Deleted</strong></td><td>Cancelled/removed from the system.</td></tr>
+                        </table>
+                    </div>
+
+                    <h3>Creating a Purchase Order</h3>
+
+                    <div class="step">
+                        <h4>Step-by-Step PO Creation</h4>
                         <ol style="margin-left: 1rem;">
-                            <li>Select the <strong>Supplier</strong> (e.g., "AMOREPACIFIC")</li>
-                            <li>Select the destination <strong>Warehouse</strong> (e.g., DEPOT_FEEL)</li>
-                            <li>Add <strong>product lines</strong> with quantities and unit prices</li>
-                            <li>Verify the lead time (auto-calculated from supplier record)</li>
-                            <li>Check the total cost</li>
-                            <li>Click <code>Save</code></li>
+                            <li>Go to <code>Purchases → Add Purchase</code> (never create from within a Sales Order!)</li>
+                            <li>Select the <strong>Supplier</strong> (check they exist first — do not create duplicates)</li>
+                            <li>Set the warehouse to <strong>DEPOT_FEEL</strong> for all new stock</li>
+                            <li>Add products using <code>FMSK_</code> code to search quickly</li>
+                            <li>Enter quantities and unit prices</li>
+                            <li><strong>Verify tax rate:</strong> French products use 20% VAT, some skincare items use 5.5% reduced rate</li>
+                            <li>Add any additional costs (freight, duties) in the <strong>Cost Lines</strong> section</li>
+                            <li><strong>Cost Distribution:</strong> Always use "By Base Quantity" (not "By Value")</li>
+                            <li>Review total and <code>Save</code> → Status = <strong>Parked</strong></li>
+                            <li>When ready to send to supplier: change status to <strong>Placed</strong></li>
                         </ol>
                     </div>
 
@@ -1004,20 +1114,61 @@
                         <div class="screenshot-caption">Create purchase order</div>
                     </div>
 
-                    <div class="step">
-                        <h4>Step 3: Place the Order</h4>
-                        <p>Once saved, click <code>Place Order</code> to send the PO to the supplier. The status changes to "Placed".</p>
-                    </div>
+                    <h3>Viewing Purchase Orders</h3>
 
                     <div class="step">
-                        <h4>Step 4: Receive Stock</h4>
-                        <p>When the order arrives, click <code>Receive</code>. Unleashed then creates a receipt to record incoming stock:</p>
+                        <h4>Finding and Filtering POs</h4>
+                        <p>To view existing purchase orders:</p>
                         <ol style="margin-left: 1rem;">
-                            <li>Verify the quantities match the order</li>
-                            <li>Note any discrepancies (e.g., "5 units missing")</li>
-                            <li>Click <code>Confirm</code></li>
+                            <li>Go to <code>Purchases → View Purchases</code> (or use the PO Kanban view)</li>
+                            <li>Filter by: <strong>Status</strong>, <strong>Warehouse</strong>, <strong>Supplier</strong>, <strong>Date Range</strong></li>
+                            <li>Use the <strong>Supplier Reference</strong> field to track supplier invoice numbers</li>
                         </ol>
-                        <p>Once confirmed, stock is added to the warehouse and the PO moves to "Received" or "Completed" status.</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/07_purchase_orders_list.png" alt="Purchase Orders" class="clickable-img">
+                        <div class="screenshot-caption">Purchase orders list with filters</div>
+                    </div>
+
+                    <h3>Receipting a Purchase Order</h3>
+
+                    <div class="step">
+                        <h4>Full Receipting Process</h4>
+                        <p>When goods arrive from a supplier, receipt the PO to add stock to inventory:</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Open the PO and click <code>Receipt</code></li>
+                            <li>Enter the <strong>Supplier Reference</strong> (invoice number) — this exports to Odoo for reconciliation</li>
+                            <li>Enter the <strong>Supplier Invoice Date</strong></li>
+                            <li>Confirm receipt quantity per line (verify against the packing slip)</li>
+                            <li>Choose: <strong>Confirm Receipt</strong> (full delivery) or <strong>Split Receipt</strong> (partial delivery)</li>
+                        </ol>
+                        <p>After receipting: the Average Landed Cost (ALC) recalculates automatically, Last Cost updates, and the PO exports to Odoo.</p>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <span class="alert-icon">⚠</span>
+                        <div>
+                            <strong>Important:</strong> You cannot set a historical receipt date — products become Stock on Hand from the date you process the receipt. Receipt promptly when goods arrive.
+                        </div>
+                    </div>
+
+                    <h3>Split Receipting (Partial Deliveries)</h3>
+
+                    <div class="step">
+                        <h4>When Only Part of the Order Arrives</h4>
+                        <p>If a supplier ships only part of your order, use Split Receipt:</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Open the PO and click <code>Receipt</code></li>
+                            <li>Enter the actual quantities received (less than ordered)</li>
+                            <li>Click <code>Split Receipt</code></li>
+                        </ol>
+                        <p>What happens:</p>
+                        <ul style="margin-left: 1rem;">
+                            <li>Receipted quantities go to Stock on Hand immediately</li>
+                            <li>Remaining quantities create a <strong>new PO</strong> with a suffix (e.g., PO-00001936 → PO1-00001936/1)</li>
+                            <li>You can still add costs to the receipted portion before completing</li>
+                        </ul>
                     </div>
 
                     <h3>Supplier Lead Times on POs</h3>
@@ -1049,14 +1200,29 @@
                         <span class="alert-icon">🔴</span>
                         <div>
                             <strong>CRITICAL: Back-Order Bug Warning</strong><br>
-                            <strong>DO NOT create a Purchase Order from within a Sales Order.</strong> There is a known bug: if you click "Create PO" on a Sales Order, it creates a linked PO that can cause the stock to be double-counted (once in the SO, once in the PO), resulting in inflated inventory. Instead, create POs manually in the PO section or through the purchase menu. If you accidentally create a PO this way, use <strong>Transaction Inquiry</strong> to identify and delete the duplicate stock movement.
+                            <strong>DO NOT create a Purchase Order from within a Sales Order.</strong> There is a known bug: if you click "Create PO" on a Sales Order, it creates a linked PO that can cause the stock to be double-counted (once in the SO, once in the PO), resulting in inflated inventory. Always create POs from <code>Purchases → Add Purchase</code>.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>CRITICAL: Never Receipt to Wrong Warehouse</strong><br>
+                            Once receipted, the warehouse <strong>cannot be changed</strong>. Always verify the warehouse is set to DEPOT_FEEL before confirming receipt.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <span class="alert-icon">⚠</span>
+                        <div>
+                            <strong>Important:</strong> Do not complete a PO until all costs have been added. You cannot add freight, duties, or other costs after completing.
                         </div>
                     </div>
 
                     <div class="alert alert-success">
                         <span class="alert-icon">✓</span>
                         <div>
-                            <strong>Tip:</strong> Always verify received quantities against the packing slip or invoice. If there's a discrepancy (e.g., 5 units short), note it in the receipt comments and follow up with the supplier.
+                            <strong>Tip:</strong> Always enter the Supplier Reference (invoice number) before receipting — this is essential for Odoo reconciliation downstream.
                         </div>
                     </div>
                 </div>
@@ -1231,7 +1397,34 @@
                     <div class="section-toggle">▼</div>
                 </div>
                 <div class="section-content">
-                    <p>Transfers allow you to move stock from one warehouse to another (e.g., from the depot to a store). Use this for planned inventory movements.</p>
+                    <p>Feel My Skin operates inventory across 7 distinct warehouses and stock locations. Transfers allow you to move stock between them.</p>
+
+                    <h3>Our 7 Warehouses</h3>
+
+                    <div class="step">
+                        <table>
+                            <tr><th>Warehouse Code</th><th>Name</th><th>Purpose</th></tr>
+                            <tr><td><code>DEPOT_FEEL</code></td><td>Main Depot</td><td>Primary receiving warehouse for ALL new stock from suppliers</td></tr>
+                            <tr><td><code>CLICHY</code></td><td>Boutique Clichy</td><td>Paris boutique — Rue de Clichy</td></tr>
+                            <tr><td><code>GAITE</code></td><td>Boutique Gaîté</td><td>Paris boutique — Rue de la Gaîté</td></tr>
+                            <tr><td><code>CHATLET</code></td><td>Boutique Châtelet</td><td>Paris boutique — Les Halles/Châtelet area</td></tr>
+                            <tr><td><code>STOK_SHOPIFY</code></td><td>Shopify Stock</td><td>Dedicated to Shopify e-commerce — auto-syncs from Depot Feel</td></tr>
+                            <tr><td><code>TRADE_IASI</code></td><td>Trade Iași</td><td>Romania wholesale/trade operations</td></tr>
+                            <tr><td><code>B2C_IASI</code></td><td>B2C Iași</td><td>Romania direct-to-consumer operations</td></tr>
+                        </table>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Key Warehouse Rules:</strong><br>
+                            • ALL new stock arrives at <strong>DEPOT_FEEL</strong> first — never receive POs directly to boutique warehouses.<br>
+                            • Transfer stock to boutiques and Shopify warehouse as needed using Warehouse Transfers.<br>
+                            • <strong>STOK_SHOPIFY</strong> syncs automatically with the Shopify integration.
+                        </div>
+                    </div>
+
+                    <h3>Creating a Warehouse Transfer</h3>
 
                     <div class="step">
                         <h4>Step 1: Access Transfers</h4>
@@ -1252,11 +1445,6 @@
                             <li>Add <strong>product lines</strong> with quantities to transfer</li>
                             <li>Click <code>Save</code></li>
                         </ol>
-                    </div>
-
-                    <div class="screenshot">
-                        <img src="images/13_warehouse_transfers.png" alt="Create Transfer" class="clickable-img">
-                        <div class="screenshot-caption">Create transfer</div>
                     </div>
 
                     <div class="step">
@@ -1792,6 +1980,102 @@
                         <img src="images/01_dashboard.png" alt="Critical Rules Summary" class="clickable-img">
                         <div class="screenshot-caption">Summary of critical rules</div>
                     </div>
+                </div>
+            </section>
+
+            <!-- Section: Common Mistakes & How to Fix Them -->
+            <section class="section" id="mistakes">
+                <div class="section-header">
+                    <h2>Common Mistakes & How to Fix Them</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Mistakes happen — what matters is knowing how to correct them. Completed transactions in Unleashed <strong>cannot be deleted or edited</strong>, so you must use corrective transactions instead.</p>
+
+                    <div class="step">
+                        <h4>Receipted the Wrong Product or Quantity</h4>
+                        <ol style="margin-left: 1rem;">
+                            <li>Create a <strong>Supplier Return</strong> to reverse the incorrect receipt</li>
+                            <li>The stock will be deducted back from inventory</li>
+                            <li>Create a corrected purchase order with the right products/quantities</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Receipted to the Wrong Warehouse</h4>
+                        <p>You cannot change the warehouse after receipt. Instead:</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Create a <strong>Warehouse Transfer</strong> from the incorrect warehouse to the correct one</li>
+                            <li>Process and confirm the transfer</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Completed a PO with Errors</h4>
+                        <p>Once a PO is completed, it cannot be reopened. Instead:</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Create a <strong>Supplier Return</strong> to reverse the transaction</li>
+                            <li>Create a new, corrected purchase order</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Stock Discrepancy (Physical vs. System)</h4>
+                        <p>If your physical inventory count doesn't match what Unleashed shows:</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Perform a <strong>Stock Count</strong> to formally reconcile</li>
+                            <li>Create <strong>Stock Adjustments</strong> to correct the variance</li>
+                            <li>Always record a reason (Inventory Count, Damage, Shrinkage, etc.)</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Accidentally Created PO from Sales Order (Back-Order Bug)</h4>
+                        <ol style="margin-left: 1rem;">
+                            <li>Go to <code>Reports → Transaction Inquiry</code></li>
+                            <li>Find the duplicate stock movement created by the linked PO</li>
+                            <li>Delete or reverse the duplicate entry</li>
+                            <li>Create a proper PO from <code>Purchases → Add Purchase</code> if still needed</li>
+                        </ol>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Remember:</strong> Completed transactions in Unleashed CANNOT be deleted or edited. You must always use corrective transactions (Supplier Returns, Stock Adjustments, Warehouse Transfers) to fix mistakes.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Quick Reference Card -->
+            <section class="section" id="quick-ref">
+                <div class="section-header">
+                    <h2>Quick Reference Card</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Use this table to quickly find where to go for common tasks:</p>
+
+                    <table>
+                        <tr><th>Task</th><th>Menu Path</th></tr>
+                        <tr><td>Search for a product</td><td><code>Inventory → Products → Search</code></td></tr>
+                        <tr><td>Create a new purchase order</td><td><code>Purchases → Add Purchase</code></td></tr>
+                        <tr><td>View all purchase orders</td><td><code>Purchases → View Purchases</code></td></tr>
+                        <tr><td>Receipt a purchase order</td><td>Open PO → <code>Receipt</code></td></tr>
+                        <tr><td>Check stock levels</td><td><code>Inventory → Stock on Hand</code></td></tr>
+                        <tr><td>Transfer stock between warehouses</td><td><code>Inventory → Warehouse Transfer</code></td></tr>
+                        <tr><td>View sales orders</td><td><code>Sales → View Sales Orders</code></td></tr>
+                        <tr><td>Run reorder report</td><td><code>Reports → Reorder Report</code></td></tr>
+                        <tr><td>Check product history</td><td>Open Product → <code>Transactions</code> tab</td></tr>
+                        <tr><td>Create stock adjustment</td><td><code>Inventory → Stock Adjustments → Add</code></td></tr>
+                    </table>
+
+                    <h3>Useful Links</h3>
+                    <ul style="margin-left: 1rem;">
+                        <li><a href="https://support.unleashedsoftware.com" target="_blank"><strong>Unleashed Help Centre</strong></a> — Official documentation and support articles</li>
+                        <li><a href="https://youtube.com/@UnleashedSoftware" target="_blank"><strong>Unleashed YouTube Channel</strong></a> — Video tutorials and walkthroughs</li>
+                    </ul>
                 </div>
             </section>
 
