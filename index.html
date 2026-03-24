@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guide Unleashed - Feel My Skin</title>
+    <title>📘 Guide Unleashed - Feel My Skin</title>
     <style>
         * {
             margin: 0;
@@ -202,32 +202,63 @@
             transform: rotate(-90deg);
         }
 
+        .section.collapsed .section-content {
+            display: none;
+        }
+
         .section-content {
             padding: 2rem;
-            max-height: 2000px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .section.collapsed .section-content {
-            max-height: 0;
-            padding: 0 2rem;
-        }
-
-        .section-content p {
-            margin-bottom: 1rem;
             color: var(--text-dark);
-            line-height: 1.8;
+        }
+
+        .step {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .step h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step p {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .step ol, .step ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .step li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background: #f0f0f0;
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent);
         }
 
         .alert {
             padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 1.5rem;
+            margin: 1.5rem 0;
             border-left: 4px solid;
+            border-radius: 4px;
             display: flex;
-            align-items: flex-start;
             gap: 1rem;
+            align-items: flex-start;
         }
 
         .alert-success {
@@ -250,34 +281,13 @@
 
         .alert-icon {
             font-size: 1.3rem;
+            font-weight: bold;
             flex-shrink: 0;
         }
 
-        .step {
-            background: var(--light-bg);
-            padding: 1.5rem;
-            border-left: 4px solid var(--primary);
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
-        }
-
-        .step h4 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .step p {
-            margin: 0.5rem 0;
-            font-size: 0.95rem;
-        }
-
-        .step code {
-            background: white;
-            padding: 0.2rem 0.4rem;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-            color: var(--accent);
+        .alert strong {
+            display: block;
+            margin-bottom: 0.25rem;
         }
 
         .screenshot {
@@ -291,49 +301,58 @@
             border: 1px solid var(--border-color);
             border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: var(--shadow);
+            transition: transform 0.3s;
         }
 
         .screenshot img:hover {
-            box-shadow: var(--shadow-lg);
             transform: scale(1.02);
         }
 
         .screenshot-caption {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-light);
             margin-top: 0.5rem;
             font-style: italic;
         }
 
-        /* Tables */
+        .content-list {
+            list-style-position: inside;
+            margin-left: 0;
+        }
+
+        .content-list li {
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
+            margin: 1.5rem 0;
         }
 
-        th {
-            background: var(--primary);
-            color: white;
-            padding: 0.75rem;
+        table th {
+            background: var(--light-bg);
+            color: var(--primary);
+            padding: 1rem;
             text-align: left;
             font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
         }
 
-        td {
-            padding: 0.75rem;
+        table td {
+            padding: 1rem;
             border-bottom: 1px solid var(--border-color);
         }
 
-        tr:hover {
+        table tr:hover {
             background: var(--light-bg);
         }
 
-        tr:last-child td {
-            border-bottom: none;
+        h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 1rem 0;
         }
 
         /* Lightbox */
@@ -342,9 +361,9 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -357,231 +376,191 @@
         .lightbox-content {
             position: relative;
             max-width: 90%;
-            max-height: 90%;
+            max-height: 90vh;
         }
 
-        .lightbox-img {
+        .lightbox-content img {
             max-width: 100%;
-            max-height: 90vh;
-            border-radius: 4px;
+            max-height: 85vh;
         }
 
         .lightbox-close {
             position: absolute;
-            top: -40px;
-            right: 0;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            background: none;
+            top: -30px;
+            right: -30px;
+            background: white;
             border: none;
-            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
 
         .lightbox-close:hover {
-            color: var(--secondary);
+            transform: scale(1.1);
         }
 
-        /* Lists */
-        .content-list {
-            padding-left: 1.5rem;
-        }
-
-        .content-list li {
-            margin-bottom: 0.75rem;
-            line-height: 1.8;
-        }
-
-        /* Responsive */
         @media (max-width: 1024px) {
             .container {
                 flex-direction: column;
-                padding: 1rem;
                 gap: 1rem;
             }
 
             .sidebar {
                 width: 100%;
-                position: relative;
-                top: auto;
+                position: static;
+                margin-bottom: 1rem;
             }
 
-            .header {
-                padding: 1.5rem;
-            }
-
-            .header h1 {
-                font-size: 1.8rem;
+            .sidebar-nav {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
             }
         }
 
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 1.4rem;
-            }
-
-            .header p {
-                font-size: 0.9rem;
+                font-size: 1.8rem;
             }
 
             .section-header h2 {
                 font-size: 1.2rem;
             }
 
-            .section-content {
-                padding: 1rem;
-            }
-
-            .sidebar {
-                padding: 1rem;
-            }
-
-            .sidebar-search input {
-                font-size: 0.85rem;
-            }
-        }
-
-        /* Print Styles */
-        @media print {
-            .sidebar, .header, .lightbox {
-                display: none !important;
-            }
-
             .container {
-                max-width: 100%;
-                padding: 0;
-                gap: 0;
+                padding: 1rem;
             }
 
-            .section {
-                page-break-inside: avoid;
-                box-shadow: none;
-                border: 1px solid #999;
-            }
-
-            .section-content {
-                max-height: none !important;
-            }
-
-            .section.collapsed .section-content {
-                display: block !important;
-                padding: 2rem;
-            }
-
-            body {
-                margin: 0;
-                padding: 1cm;
+            .sidebar-nav {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <div class="header">
         <h1>📘 Guide Unleashed - Feel My Skin</h1>
-        <p>Guide interactif pour la gestion des stocks et des commandes (Interactive guide for inventory and order management)</p>
+        <p>Guide interactif pour la gestion des stocks et des commandes</p>
     </div>
 
     <div class="container">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
-            <h3>Navigation</h3>
+            <h3>Contenu du Guide</h3>
             <div class="sidebar-search">
-                <input type="text" id="searchInput" placeholder="Rechercher... (Search)">
+                <input type="text" id="searchInput" placeholder="Rechercher...">
             </div>
-            <ul class="sidebar-nav" id="navList">
-                <li><a href="#intro" class="nav-link active">Introduction</a></li>
+            <nav class="sidebar-nav">
+                <li><a href="#intro" class="nav-link">Introduction</a></li>
+                <li><a href="#dashboard" class="nav-link">Aperçu du Tableau de Bord</a></li>
                 <li><a href="#products" class="nav-link">Gestion des Produits</a></li>
+                <li><a href="#customers" class="nav-link">Clients et Fournisseurs</a></li>
+                <li><a href="#pricing" class="nav-link">Configuration des Prix</a></li>
+                <li><a href="#shopify" class="nav-link">Intégration Shopify</a></li>
                 <li><a href="#purchase" class="nav-link">Commandes Fournisseurs</a></li>
                 <li><a href="#sales" class="nav-link">Commandes Clients</a></li>
                 <li><a href="#stock-adjust" class="nav-link">Ajustements de Stock</a></li>
                 <li><a href="#warehouse" class="nav-link">Transferts entre Entrepôts</a></li>
+                <li><a href="#reports" class="nav-link">Rapports et Tableaux de Bord</a></li>
+                <li><a href="#month-end" class="nav-link">Clôture de Fin de Mois</a></li>
                 <li><a href="#daily" class="nav-link">Vérifications Quotidiennes</a></li>
                 <li><a href="#critical-rules" class="nav-link">Règles Critiques</a></li>
-            </ul>
+            </nav>
         </aside>
 
         <!-- Main Content -->
         <main class="main-content">
 
-            <!-- Section 1: Introduction -->
+            <!-- Section 0: Introduction -->
             <section class="section" id="intro">
                 <div class="section-header">
-                    <h2>Introduction - À Propos d'Unleashed</h2>
+                    <h2>Introduction</h2>
                     <div class="section-toggle">▼</div>
                 </div>
                 <div class="section-content">
-                    <p>Unleashed est un système de gestion des stocks (Inventory Management System) utilisé par Feel My Skin pour:</p>
+                    <p>Bienvenue dans le Guide de Gestion des Stocks Unleashed pour Feel My Skin. Ce guide est votre référence complète pour gérer les stocks, les clients, les fournisseurs, les commandes et les rapports dans Unleashed.</p>
+
+                    <h3>Qu'est-ce qu'Unleashed ?</h3>
+                    <p>Unleashed est un système de gestion des stocks basé sur le cloud qui suit les stocks dans plusieurs entrepôts, gère les commandes client et fournisseur, et fournit des rapports et analyses détaillés. Pour Feel My Skin, il s'intègre avec Shopify (e-commerce), les systèmes POS (magasins de détail) et les systèmes comptables.</p>
+
+                    <h3>Configuration Actuelle de Feel My Skin</h3>
                     <ul class="content-list">
-                        <li><strong>Suivre les niveaux de stock</strong> (Track inventory levels) dans 7 entrepôts français et roumains</li>
-                        <li><strong>Gérer les commandes fournisseurs</strong> (Manage purchase orders) auprès de nos suppliers</li>
-                        <li><strong>Traiter les commandes clients</strong> (Process customer orders) pour la vente B2C et B2B</li>
-                        <li><strong>Enregistrer les mouvements</strong> (Record stock movements) : transferts, ajustements, assemblages</li>
-                        <li><strong>Générer des rapports</strong> (Generate reports) pour l'analyse et la planification</li>
+                        <li><strong>Entrepôts :</strong> DEPOT_FEEL (principal), CLICHY (magasin), GAITE (magasin), CHATELET (magasin), plus les emplacements roumains</li>
+                        <li><strong>Canaux de Vente :</strong> Shopify (e-commerce), API/POS (magasins physiques), Wholesale</li>
+                        <li><strong>Produits :</strong> ~1 000+ SKU (produits de soins de la peau coréens)</li>
+                        <li><strong>Intégrations :</strong> Shopify Hub pour la synchronisation e-commerce, scripts API personnalisés pour les commandes POS/wholesale</li>
+                    </ul>
+
+                    <h3>Terminologie Clé</h3>
+                    <ul class="content-list">
+                        <li><strong>SKU (Stock Keeping Unit) :</strong> Code produit unique (ex: SERUM-001)</li>
+                        <li><strong>Commande Fournisseur (PO) :</strong> Commande placée auprès d'un fournisseur pour acheter des stocks</li>
+                        <li><strong>Commande Client (SO) :</strong> Commande d'un client (Shopify, POS, wholesale)</li>
+                        <li><strong>Ajustement de Stock :</strong> Correction manuelle du stock pour dommage, rétrécissement ou discordances de comptage</li>
+                        <li><strong>Transfert d'Entrepôt :</strong> Mouvement de stock entre emplacements</li>
+                        <li><strong>Groupe de Vente :</strong> Canal ou source pour rapports (Shopify, API, Wholesale)</li>
                     </ul>
 
                     <div class="alert alert-success">
                         <span class="alert-icon">✓</span>
                         <div>
-                            <strong>Conseil:</strong> Unleashed est accessible via <code>https://live.unleashedsoftware.com</code>. Utilisez vos identifiants FMS pour vous connecter.
+                            <strong>Conseil :</strong> Utilisez la boîte de recherche dans la barre latérale pour trouver rapidement des sujets dans ce guide.
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <h3 style="margin-top: 2rem; color: var(--primary);">Les 7 Entrepôts de Feel My Skin</h3>
-                    <table>
-                        <tr>
-                            <th>Code (Code)</th>
-                            <th>Localisation (Location)</th>
-                            <th>Type (Type)</th>
-                            <th>Rôle (Role)</th>
-                        </tr>
-                        <tr>
-                            <td><code>DEPOT_FEEL</code></td>
-                            <td>Feel My Skin HQ</td>
-                            <td>Warehouse</td>
-                            <td>Stock de base / Main warehouse</td>
-                        </tr>
-                        <tr>
-                            <td><code>STOK_SHOPIFY</code></td>
-                            <td>Fulfillment Center</td>
-                            <td>Warehouse</td>
-                            <td>Préparation e-commerce / E-commerce fulfillment</td>
-                        </tr>
-                        <tr>
-                            <td><code>CLICHY</code></td>
-                            <td>Clichy, Paris</td>
-                            <td>Store</td>
-                            <td>Boutique physique / Retail store</td>
-                        </tr>
-                        <tr>
-                            <td><code>GAITE</code></td>
-                            <td>Montparnasse, Paris</td>
-                            <td>Store</td>
-                            <td>Boutique physique / Retail store</td>
-                        </tr>
-                        <tr>
-                            <td><code>CHATLET</code></td>
-                            <td>Châtelet, Paris</td>
-                            <td>Store</td>
-                            <td>Boutique physique / Retail store</td>
-                        </tr>
-                        <tr>
-                            <td><code>TRADE_IASI</code></td>
-                            <td>Iași, Romania</td>
-                            <td>Warehouse</td>
-                            <td>Distribution centre roumain / Romanian hub</td>
-                        </tr>
-                        <tr>
-                            <td><code>B2C_IASI</code></td>
-                            <td>Iași, Romania</td>
-                            <td>Fulfillment</td>
-                            <td>Livraisons B2C roumaines / Romanian B2C</td>
-                        </tr>
-                    </table>
+            <!-- Section 1: Dashboard -->
+            <section class="section" id="dashboard">
+                <div class="section-header">
+                    <h2>Aperçu du Tableau de Bord</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Le Tableau de Bord est votre centre de contrôle. Il affiche un résumé des métriques clés de l'entreprise, des tâches en attente et des alertes en temps réel.</p>
 
-                    <div class="screenshot">
-                        <img src="images/01_dashboard.png" alt="Unleashed Dashboard" class="clickable-img">
-                        <div class="screenshot-caption">Tableau de bord principal d'Unleashed / Unleashed main dashboard</div>
+                    <div class="step">
+                        <h4>Accès au Tableau de Bord</h4>
+                        <p>À partir du menu principal, cliquez sur <code>Dashboard</code>. Vous verrez un aperçu personnalisable avec des widgets affichant :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li>Revenu total et bénéfice brut</li>
+                            <li>Produits et catégories les plus performants</li>
+                            <li>Alertes de stock faible</li>
+                            <li>Commandes en attente et expéditions reçues</li>
+                            <li>Tendances de vente par canal</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>Routine Quotidienne du Tableau de Bord</h4>
+                        <p>Chaque matin, consacrez 5 minutes au tableau de bord pour :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Vérifier les <strong>alertes de stock faible</strong> – identifier les produits nécessitant une réapprovision</li>
+                            <li>Examiner les <strong>commandes client en attente</strong> – voir quelles commandes attendent d'être expédiées</li>
+                            <li>Vérifier les <strong>expéditions reçues</strong> – confirmer l'arrivée des livraisons des fournisseurs</li>
+                            <li>Analyser les <strong>commandes en retard</strong> – identifier les commandes avec expéditions partielles</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Personnalisation de Votre Tableau de Bord</h4>
+                        <p>Cliquez sur <code>Edit Dashboard</code> pour personnaliser votre vue :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li>Ajouter ou supprimer des widgets</li>
+                            <li>Changer le type de widget (graphique, grille, carte KPI)</li>
+                            <li>Filtrer par entrepôt, canal de vente ou groupe de produits</li>
+                            <li>Définir les plages horaires (quotidienne, hebdomadaire, mensuelle)</li>
+                        </ul>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <span class="alert-icon">✓</span>
+                        <div>
+                            <strong>Conseil :</strong> Créez des tableaux de bord distincts pour différents rôles (ex: tableau de bord du responsable de magasin, tableau de bord des finances) pour des flux de travail quotidiens plus rapides.
+                        </div>
                     </div>
                 </div>
             </section>
@@ -589,426 +568,1230 @@
             <!-- Section 2: Product Management -->
             <section class="section" id="products">
                 <div class="section-header">
-                    <h2>Gestion des Produits (Product Management)</h2>
+                    <h2>Gestion des Produits</h2>
                     <div class="section-toggle">▼</div>
                 </div>
                 <div class="section-content">
-                    <p>Les produits dans Unleashed incluent tous les articles vendus par Feel My Skin : sérums, crèmes, sets, etc.</p>
+                    <p>Les produits dans Unleashed incluent tous les articles vendus par Feel My Skin : sérums, crèmes, sets, etc. Chaque enregistrement de produit contient les prix, les informations sur les fournisseurs, l'allocation des coûts et le suivi des stocks.</p>
 
                     <div class="step">
-                        <h4>Étape 1: Accéder à la gestion des produits</h4>
-                        <p>Depuis le menu principal, cliquez sur <code>Products</code> (Produits). Vous verrez la liste complète de tous les produits actifs.</p>
+                        <h4>Étape 1 : Accédez à la Gestion des Produits</h4>
+                        <p>À partir du menu principal, cliquez sur <code>Products</code>. Vous verrez la liste complète de tous les produits actifs.</p>
                     </div>
 
                     <div class="screenshot">
                         <img src="images/02_products_list.png" alt="Products List" class="clickable-img">
-                        <div class="screenshot-caption">Liste des produits / Products list</div>
+                        <div class="screenshot-caption">Liste des produits</div>
                     </div>
 
                     <div class="step">
-                        <h4>Étape 2: Consulter les détails d'un produit</h4>
-                        <p>Cliquez sur le nom du produit pour voir ses détails : code SKU, prix d'achat, prix de vente, description, images, fournisseurs.</p>
+                        <h4>Étape 2 : Affichage des Détails du Produit</h4>
+                        <p>Cliquez sur le nom du produit pour afficher ses détails : code SKU, prix d'achat, prix de vente, description, images, fournisseurs.</p>
                     </div>
 
                     <div class="screenshot">
                         <img src="images/03_product_detail.png" alt="Product Details" class="clickable-img">
-                        <div class="screenshot-caption">Détails d'un produit / Product details</div>
+                        <div class="screenshot-caption">Détails du produit</div>
+                    </div>
+
+                    <div class="step">
+                        <h4>Informations Clés pour Chaque Produit</h4>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>SKU (Stock Keeping Unit) :</strong> Code unique (ex: SERUM-001) – doit correspondre à l'ID produit Shopify</li>
+                            <li><strong>Code à Barres :</strong> Code à barres pour lecture rapide au POS/magasins</li>
+                            <li><strong>Unité de Mesure :</strong> Unité (pièce, boîte, carton)</li>
+                            <li><strong>Prix de Coût :</strong> Prix d'achat auprès du fournisseur</li>
+                            <li><strong>Prix de Détail (Prix de Vente Par Défaut) :</strong> Prix de vente client utilisé par défaut</li>
+                            <li><strong>Fournisseur :</strong> Fournisseur par défaut pour ce produit</li>
+                            <li><strong>Niveau de Réapprovision :</strong> Stock minimum avant alerte de réapprovision automatique</li>
+                            <li><strong>Groupe de Produits :</strong> Catégorie pour rapports (ex: "Sérums", "Crèmes", "Sets")</li>
+                            <li><strong>Méthode de Distribution des Coûts :</strong> DOIT être définie sur "par quantité de base" (NON "par valeur") – cela garantit un calcul correct du COGS</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 3 : Ajouter un Nouveau Produit</h4>
+                        <p>Cliquez sur <code>+ New Product</code>. Remplissez les champs obligatoires : nom, SKU, prix d'achat, prix de vente, fournisseur par défaut et méthode de distribution des coûts.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Modification en Lot des Codes Produits</h4>
+                        <p>Pour changer plusieurs SKU produits à la fois (ex: synchronisation avec les IDs Shopify) :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Allez au menu <code>Products</code></li>
+                            <li>Cliquez sur <code>Change Codes</code> (dans la barre d'outils ou section Inventaire)</li>
+                            <li>Sélectionnez <code>Batch</code> pour importer un modèle</li>
+                            <li>Téléchargez votre CSV avec ancien code, nouveau code et noms de produits</li>
+                            <li>Vérifiez et cliquez sur <code>Import</code></li>
+                        </ol>
+                        <p>C'est beaucoup plus rapide que de changer les codes un par un et est essentiel pour synchroniser les SKU Shopify dans Unleashed.</p>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>CRITIQUE : Paramètre de Distribution des Coûts</strong><br>
+                            La méthode de distribution des coûts DOIT être définie sur <strong>"par quantité de base"</strong>, NON "par valeur". Cela corrige les calculs COGS gonflés. Si vous voyez des COGS anormalement élevés ou des problèmes de marge, vérifiez d'abord ce paramètre.
+                        </div>
                     </div>
 
                     <div class="alert alert-warning">
                         <span class="alert-icon">⚠</span>
                         <div>
-                            <strong>Attention:</strong> Ne modifiez le SKU ou le code produit que si vous êtes sûr. Cela peut affecter les commandes existantes.
+                            <strong>Attention :</strong> Ne modifiez le SKU ou le code produit que si vous êtes sûr. La modification des codes affecte toutes les commandes historiques et la synchronisation Shopify. Utilisez les modifications en lot plutôt que les modifications individuelles pour maintenir la cohérence.
                         </div>
-                    </div>
-
-                    <div class="step">
-                        <h4>Étape 3: Ajouter un nouveau produit</h4>
-                        <p>Cliquez sur <code>+ New Product</code>. Remplissez les champs obligatoires : nom, SKU, prix d'achat, prix de vente, fournisseur par défaut.</p>
-                    </div>
-
-                    <div class="step">
-                        <h4>Informations importantes pour chaque produit</h4>
-                        <ul style="margin-left: 1rem;">
-                            <li><strong>SKU (Stock Keeping Unit):</strong> Code unique (ex: SERUM-001)</li>
-                            <li><strong>Barcode:</strong> Code à barres pour scans rapides</li>
-                            <li><strong>Unit of Measure:</strong> Unité (pièce, boîte, carton)</li>
-                            <li><strong>Cost Price:</strong> Prix d'achat auprès du fournisseur</li>
-                            <li><strong>Retail Price:</strong> Prix de vente client</li>
-                            <li><strong>Supplier:</strong> Fournisseur par défaut</li>
-                            <li><strong>Reorder Level:</strong> Stock minimum avant réapprovisionnement</li>
-                        </ul>
                     </div>
                 </div>
             </section>
 
-            <!-- Section 3: Purchase Orders -->
-            <section class="section" id="purchase">
+            <!-- Section 3: Customer & Supplier Setup -->
+            <section class="section" id="customers">
                 <div class="section-header">
-                    <h2>Commandes Fournisseurs (Purchase Orders)</h2>
+                    <h2>Clients et Fournisseurs</h2>
                     <div class="section-toggle">▼</div>
                 </div>
                 <div class="section-content">
-                    <p>Les commandes fournisseurs (PO) permettent de commander du stock auprès de nos suppliers.</p>
+                    <p>Les clients et les fournisseurs sont essentiels pour créer des commandes client et commandes fournisseur. Une mise en place appropriée garantit un traitement correct des commandes et des rapports précis.</p>
+
+                    <h3>Mise en Place des Clients</h3>
 
                     <div class="step">
-                        <h4>Étape 1: Accéder aux commandes fournisseurs</h4>
-                        <p>Menu → <code>Purchase Orders</code> pour voir toutes les PO. Vous pouvez filtrer par statut : Open, Placed, Received, Completed.</p>
+                        <h4>Stratégie de Codes Clients</h4>
+                        <p>Feel My Skin utilise une approche pratique de la gestion des clients :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Clients par canal (un par canal) :</strong> "Shopify", "Clichy POS", "Gaite POS", "Chatelet POS", "Wholesale"</li>
+                            <li><strong>Clients wholesale individuels :</strong> Créez des enregistrements clients individuels uniquement pour les comptes wholesale B2B</li>
+                            <li><strong>NE PAS créer de clients individuels pour Shopify ou POS :</strong> Ceux-ci sont automatiquement regroupés par canal</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>Création d'un Client</h4>
+                        <ol style="margin-left: 1rem;">
+                            <li>Menu → <code>Customers</code> → <code>+ New Customer</code></li>
+                            <li>Entrez le <strong>Code Client</strong> (ex: "SHOPIFY", "GAITE-POS", "ACME-WHOLESALE")</li>
+                            <li>Entrez le <strong>Nom du Client</strong> (ex: "Shopify E-Commerce", "Magasin Gaite", "ACME Wholesale")</li>
+                            <li>Remplissez les coordonnées (email, téléphone, adresse) si applicable</li>
+                            <li>Définissez la devise par défaut et les conditions de paiement</li>
+                            <li>Cliquez sur <code>Save</code></li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Importation de Clients en Lot</h4>
+                        <p>Si vous avez une feuille de calcul de clients, utilisez la fonction d'importation :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Allez à <code>Import/Export</code> → <code>Customers</code></li>
+                            <li>Téléchargez le modèle (CSV)</li>
+                            <li>Remplissez : Code Client, Nom du Client, Email, Téléphone, Adresse, Ville, Pays</li>
+                            <li>Téléchargez le fichier dans Unleashed</li>
+                        </ol>
+                    </div>
+
+                    <h3>Mise en Place des Fournisseurs</h3>
+
+                    <div class="step">
+                        <h4>Stratégie de Codes Fournisseurs</h4>
+                        <p>Créez un enregistrement par entreprise fournisseur. Inclure les informations standard :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Code Fournisseur :</strong> Identifiant unique (ex: "AMOREPACIFIC", "ETUDE")</li>
+                            <li><strong>Nom du Fournisseur :</strong> Nom complet de l'entreprise</li>
+                            <li><strong>Détails de Contact :</strong> Email, téléphone, adresse</li>
+                            <li><strong>Entrepôt par Défaut :</strong> Où les PO de ce fournisseur arrivent généralement (ex: DEPOT_FEEL)</li>
+                            <li><strong>Délai d'Approvisionnement :</strong> Nombre de jours entre la date de commande et la livraison attendue</li>
+                            <li><strong>Notes par Défaut :</strong> Conditions de paiement, minimums de commande, personne de contact, etc.</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>Création d'un Fournisseur</h4>
+                        <ol style="margin-left: 1rem;">
+                            <li>Menu → <code>Suppliers</code> → <code>+ New Supplier</code></li>
+                            <li>Entrez le <strong>Code Fournisseur</strong> et le <strong>Nom du Fournisseur</strong></li>
+                            <li>Définissez l'<strong>Entrepôt par Défaut</strong> (où le stock arrive généralement)</li>
+                            <li>Entrez le <strong>Délai d'Approvisionnement</strong> en jours (ex: 10 jours pour les fournisseurs coréens)</li>
+                            <li>Ajoutez les coordonnées et les notes par défaut</li>
+                            <li>Cliquez sur <code>Save</code></li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Pourquoi les Délais d'Approvisionnement Sont Importants</h4>
+                        <p>Lorsque vous créez une Commande Fournisseur avec un fournisseur ayant un délai d'approvisionnement défini, Unleashed calcule automatiquement la date de livraison attendue. Par exemple :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li>Date de Commande : 1er janvier</li>
+                            <li>Délai d'Approvisionnement : 10 jours</li>
+                            <li>Livraison Attendue : 11 janvier</li>
+                        </ul>
+                        <p>Cela vous aide à planifier les arrivées de stock et à éviter les ruptures de stock. Vérifiez toujours et mettez à jour les délais d'approvisionnement à mesure que les relations avec les fournisseurs changent.</p>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <span class="alert-icon">✓</span>
+                        <div>
+                            <strong>Conseil :</strong> Définissez des entrepôts par défaut sur les enregistrements de fournisseurs afin que les PO acheminent automatiquement le stock vers le bon emplacement. Cela économise du temps à chaque commande.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Pricing Configuration -->
+            <section class="section" id="pricing">
+                <div class="section-header">
+                    <h2>Configuration des Prix</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Unleashed prend en charge une hiérarchie de tarification flexible. Différents clients et canaux peuvent avoir des prix différents pour le même produit.</p>
+
+                    <h3>Hiérarchie de Tarification (du Haut au Bas)</h3>
+                    <p>Unleashed applique les prix dans cet ordre. Le premier match gagne :</p>
+                    <ol style="margin-left: 1rem;">
+                        <li><strong>Tarification Spécifique au Client</strong> – Prix personnalisé pour ce client exact</li>
+                        <li><strong>Palier de Prix de Vente</strong> – Basé sur la quantité commandée (ex: achat 10+ unités = remise)</li>
+                        <li><strong>Prix de Vente Par Défaut</strong> – Le prix par défaut sur l'enregistrement de produit</li>
+                    </ol>
+
+                    <div class="step">
+                        <h4>Définition d'une Tarification Spécifique au Client</h4>
+                        <p>Pour les clients wholesale ayant des prix négociés :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Allez à <code>Customers</code> et sélectionnez le client</li>
+                            <li>Cliquez sur la section <strong>Customer Pricing</strong></li>
+                            <li>Ajoutez une ligne avec :
+                                <ul style="margin-left: 1rem;">
+                                    <li><strong>Produit ou Groupe de Produits</strong> (ex: "SERUM-001" ou "Sérums")</li>
+                                    <li><strong>Type de Prix</strong> – "Prix Fixe" (ex: 10 €) ou "Pourcentage de Remise" (ex: 20%)</li>
+                                    <li><strong>Valide À Partir De / Valide Jusqu'au</strong> – Plage de dates optionnelle</li>
+                                </ul>
+                            </li>
+                            <li>Cliquez sur <code>Save</code></li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Importation Groupée de Tarification Client</h4>
+                        <p>Pour définir des prix pour de nombreux produits à la fois :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Allez à <code>Import/Export</code> → <code>Customer Pricing</code></li>
+                            <li>Téléchargez le modèle</li>
+                            <li>Remplissez :
+                                <ul style="margin-left: 1rem;">
+                                    <li><strong>Code Client</strong> (ex: "ACME-WHOLESALE")</li>
+                                    <li><strong>Groupe de Produits</strong> (optionnel – s'applique à tous les produits du groupe)</li>
+                                    <li><strong>Prix/Remise</strong> (ex: "50" pour prix fixe ou "20%" pour remise)</li>
+                                    <li><strong>Valide À Partir De / Valide Jusqu'au</strong> (ex: "2026-01-01" à "2026-06-30")</li>
+                                </ul>
+                            </li>
+                            <li>Téléchargez et confirmez</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Gestion des Révisions de Prix</h4>
+                        <p>Pour les clients wholesale, il est courant de réviser les prix trimestriellement ou annuellement. Utilisez la date "Valide Jusqu'au" pour :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li>Définir les dates d'expiration des prix négociés</li>
+                            <li>Créer des rappels automatiques pour renouveler les accords de prix</li>
+                            <li>Suivre le moment où les prix reviennent au par défaut après la date "Valide Jusqu'au"</li>
+                        </ul>
+                        <p>Pour prolonger la tarification, mettez à jour la date "Valide Jusqu'au" et réenregistrez.</p>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <span class="alert-icon">⚠</span>
+                        <div>
+                            <strong>Important :</strong> Utilisez les Groupes de Produits pour les modifications de prix en masse. Si vous appliquez une tarification à un groupe de produits, TOUS les produits de ce groupe hériteront automatiquement de la tarification. Cela économise du temps mais nécessite une planification minutieuse.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Shopify Integration -->
+            <section class="section" id="shopify">
+                <div class="section-header">
+                    <h2>Intégration Shopify</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Le Hub Shopify est la connexion d'Unleashed à votre magasin e-commerce. Il synchronise automatiquement les produits et importe les commandes client depuis Shopify.</p>
+
+                    <h3>Comment Fonctionne l'Intégration Shopify</h3>
+
+                    <div class="step">
+                        <h4>Étape 1 : Configuration du Hub Shopify</h4>
+                        <p>Le Hub Shopify doit être installé et configuré avant que les commandes ne se synchronisent :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Menu → <code>Integrations</code> → <code>Shopify</code></li>
+                            <li>Cliquez sur <code>Configure</code></li>
+                            <li>Connectez-vous à votre compte Shopify et autorisez l'application Unleashed</li>
+                            <li>Configurez les paramètres (voir ci-dessous)</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 2 : Paramètres de Configuration Clés</h4>
+                        <p>Lors de la configuration du Hub Shopify, prêtez attention à ces paramètres critiques :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Entrepôt Par Défaut pour les Commandes Shopify :</strong> Définir sur "Shopify" ou votre emplacement de traitement e-commerce</li>
+                            <li><strong>Créer les Produits Manquants :</strong> Activez cette option afin que les nouveaux produits Shopify se créent automatiquement dans Unleashed (à la première commande)</li>
+                            <li><strong>Créer les Clients Manquants :</strong> Généralement activé – crée "Shopify" comme client</li>
+                            <li><strong>Correspondance SKU :</strong> Assurez-vous que les SKU Shopify correspondent aux codes de produit Unleashed (voir Synchronisation SKU ci-dessous)</li>
+                            <li><strong>Assignation du Groupe de Vente :</strong> Définir sur "Shopify" pour les rapports/analyse</li>
+                        </ul>
+                    </div>
+
+                    <h3>Correspondance SKU Produit (Critique !)</h3>
+
+                    <div class="step">
+                        <h4>Le Défi de la Synchronisation SKU</h4>
+                        <p>Pour que les commandes Shopify correspondent aux produits corrects dans Unleashed, le SKU du produit Shopify doit correspondre exactement au code de produit Unleashed. Cela nécessite une coordination :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li>Shopify génère des ID produits (SKU) – ce sont peut-être des numéros internes</li>
+                            <li>Les codes de produits Unleashed sont vos codes d'inventaire internes (ex: "SERUM-001")</li>
+                            <li>S'ils ne correspondent pas, les commandes arrivent sans produit assigné</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>Solution : Synchronisation SKU en Lot</h4>
+                        <p>Pour aligner les SKU Shopify et Unleashed :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Exportez votre catalogue de produits depuis Shopify (via l'administrateur Shopify)</li>
+                            <li>Dans Unleashed, allez à <code>Products</code> → <code>Change Codes</code> → <code>Batch</code></li>
+                            <li>Téléchargez un CSV avec :
+                                <ul style="margin-left: 1rem;">
+                                    <li>Code de Produit Actuel (votre code Unleashed)</li>
+                                    <li>Nouveau Code de Produit (du SKU Shopify)</li>
+                                </ul>
+                            </li>
+                            <li>Vérifiez les modifications et importez</li>
+                        </ol>
+                        <p>Après cela, les nouvelles commandes Shopify correspondront correctement aux produits Unleashed.</p>
+                    </div>
+
+                    <h3>Configuration du Taux de Taxe (CRITIQUE pour la Synchronisation Shopify)</h3>
+
+                    <div class="step">
+                        <h4>Comprendre le Problème de Taxe</h4>
+                        <p>Les commandes Shopify incluent des taux de taxe (20%, 5,5%, etc.), mais Unleashed peut ne pas reconnaître ces taux de taxe s'ils ne sont pas configurés. Lorsque les commandes se synchronisent, Unleashed recherche des taux de taxe correspondants. S'il n'en existe pas, l'importation de la commande échoue.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Configuration des Taux de Taxe</h4>
+                        <p>Pour Feel My Skin, vous devez configurer ces taux de taxe :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Menu → <code>Settings</code> → <code>Taxes</code></li>
+                            <li>Cliquez sur <code>+ New Tax Rate</code> pour chaque taux dont vous avez besoin</li>
+                            <li>Ajoutez <strong>20%</strong> – pour la TVA standard en France</li>
+                            <li>Ajoutez <strong>5,5%</strong> – pour la TVA réduite (ou ce que Shopify utilise)</li>
+                            <li>Conservez la <strong>par défaut du système à 0%</strong> (pas de taxe) pour les commandes POS/wholesale</li>
+                            <li>Pour chaque taux, entrez un Code Fiscal (ex: "20% Ventes" ou "5,5% Réduit")</li>
+                            <li>Cochez la case <code>Sales Tax</code> pour chacun</li>
+                            <li>Cliquez sur <code>Save</code></li>
+                        </ol>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>CRITIQUE : Configuration du Taux de Taxe</strong><br>
+                            <strong>NE SUPPRIMEZ JAMAIS le taux de taxe 0%</strong> (la valeur par défaut du système). Conservez-le en place même après avoir ajouté 20% et 5,5%. Le taux de 0% est essentiel pour les commandes POS/wholesale qui ne portent pas de taxe dans Unleashed. Les commandes Shopify utilisent 20%/5,5%, tandis que les commandes POS utilisent 0%.
+                        </div>
+                    </div>
+
+                    <h3>Flux de Commande Shopify</h3>
+
+                    <div class="step">
+                        <h4>Comment les Commandes Apparaissent dans Unleashed</h4>
+                        <p>Quand un client achète dans votre magasin Shopify :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>La commande apparaît dans Shopify avec le statut "En attente" (pas encore traitée)</li>
+                            <li>Unleashed reçoit la commande et crée une Commande Client avec le statut "Parked" ou "Placed"</li>
+                            <li>Lorsque vous traitez la commande dans Shopify, elle se met à jour dans Unleashed en "Shipped" ou "Completed"</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Flux de Traitement</h4>
+                        <p>Il y a deux façons de traiter les commandes Shopify :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Traiter dans Shopify :</strong> Marquez les articles comme "Fulfillés" dans Shopify → Unleashed se met à jour automatiquement</li>
+                            <li><strong>Traiter dans Unleashed :</strong> Complétez la Commande Client dans Unleashed → Synchronisez optionnellement avec Shopify</li>
+                        </ul>
+                        <p>Recommandation : Traitez d'abord dans Shopify, puis Unleashed se complète automatiquement quand le statut de la commande change.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Groupes de Vente pour l'Analyse par Canal</h4>
+                        <p>Toutes les commandes Shopify sont balisées avec <code>Sales Group: Shopify</code>. Cela vous permet de filtrer les rapports et les tableaux de bord par canal. Vous pouvez également créer des groupes de vente pour d'autres canaux :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Shopify</strong> – Commandes e-commerce</li>
+                            <li><strong>API/POS</strong> – Commandes de magasins physiques importées via script</li>
+                            <li><strong>Wholesale</strong> – Commandes B2B</li>
+                        </ul>
+                        <p>Utilisez ces regroupements pour suivre les revenus, la marge et l'inventaire par canal.</p>
+                    </div>
+
+                    <h3>Dépannage de la Synchronisation Shopify</h3>
+
+                    <div class="step">
+                        <h4>Les Commandes ne se Synchronisent pas ?</h4>
+                        <p>Problèmes courants et solutions :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Taux de taxe manquants :</strong> Vérifiez Settings → Taxes. Ajoutez les taux de 20% et 5,5% s'ils manquent.</li>
+                            <li><strong>Décalage SKU :</strong> Vérifiez que le SKU Shopify correspond au code de produit Unleashed. Utilisez le changement en lot pour synchroniser.</li>
+                            <li><strong>Erreur de connexion :</strong> Menu → Integrations → Shopify → Vérifiez le journal des connexions pour les erreurs.</li>
+                            <li><strong>Produits non créés :</strong> Assurez-vous que "Create Missing Products" est activé dans la configuration Shopify.</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>Importation Manuelle de Commandes Manquantes</h4>
+                        <p>Si les commandes ne s'importent pas automatiquement, utilisez la fonction d'importation manuelle :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Allez à <code>Integrations</code> → <code>Shopify</code></li>
+                            <li>Cliquez sur <code>Import Missing Sales Orders</code></li>
+                            <li>Définissez la plage de dates (ex: "1er janvier à Aujourd'hui")</li>
+                            <li>Cliquez sur <code>Import</code></li>
+                            <li>Vérifiez le journal des connexions pour les erreurs</li>
+                        </ol>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <span class="alert-icon">✓</span>
+                        <div>
+                            <strong>Conseil :</strong> Après avoir corrigé les taux de taxe ou les problèmes de SKU, testez toujours avec une commande Shopify récente pour confirmer que la synchronisation fonctionne avant de traiter des centaines de commandes historiques.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: Purchase Orders -->
+            <section class="section" id="purchase">
+                <div class="section-header">
+                    <h2>Commandes Fournisseurs</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Les commandes fournisseurs (PO) nous permettent de commander des stocks auprès de nos fournisseurs. Une gestion appropriée des PO garantit l'arrivée en temps opportun des stocks et des niveaux d'inventaire précis.</p>
+
+                    <div class="step">
+                        <h4>Étape 1 : Accédez aux Commandes Fournisseurs</h4>
+                        <p>Menu → <code>Purchase Orders</code> pour afficher toutes les PO. Vous pouvez filtrer par statut : Open, Placed, Received, Completed.</p>
                     </div>
 
                     <div class="screenshot">
                         <img src="images/07_purchase_orders_list.png" alt="Purchase Orders" class="clickable-img">
-                        <div class="screenshot-caption">Liste des commandes fournisseurs / Purchase orders list</div>
+                        <div class="screenshot-caption">Liste des commandes fournisseurs</div>
                     </div>
 
                     <div class="step">
-                        <h4>Étape 2: Créer une nouvelle PO</h4>
-                        <p>Cliquez sur <code>+ New Purchase Order</code>:</p>
+                        <h4>Étape 2 : Créer une Nouvelle PO</h4>
+                        <p>Cliquez sur <code>+ New Purchase Order</code> :</p>
                         <ol style="margin-left: 1rem;">
-                            <li>Sélectionnez le <strong>Fournisseur (Supplier)</strong></li>
-                            <li>Sélectionnez l'<strong>Entrepôt (Warehouse)</strong> destinataire</li>
-                            <li>Ajoutez les <strong>lignes de produits</strong> (Product lines)</li>
-                            <li>Entrez les <strong>quantités et prix</strong> (Quantities and prices)</li>
-                            <li>Vérifiez le <strong>total</strong> (Total)</li>
-                            <li>Cliquez <code>Save</code></li>
+                            <li>Sélectionnez le <strong>Fournisseur</strong> (ex: "AMOREPACIFIC")</li>
+                            <li>Sélectionnez l'<strong>Entrepôt</strong> de destination (ex: DEPOT_FEEL)</li>
+                            <li>Ajoutez les <strong>lignes de produits</strong> avec quantités et prix unitaires</li>
+                            <li>Vérifiez le délai d'approvisionnement (auto-calculé à partir de l'enregistrement du fournisseur)</li>
+                            <li>Vérifiez le coût total</li>
+                            <li>Cliquez sur <code>Save</code></li>
                         </ol>
                     </div>
 
                     <div class="screenshot">
                         <img src="images/06_nav_purchases.png" alt="Create PO" class="clickable-img">
-                        <div class="screenshot-caption">Création d'une commande fournisseur / Create purchase order</div>
+                        <div class="screenshot-caption">Créer une commande fournisseur</div>
                     </div>
 
                     <div class="step">
-                        <h4>Étape 3: Placer la commande</h4>
-                        <p>Une fois sauvegardée, cliquez <code>Place Order</code> pour envoyer la PO au fournisseur. Le statut passe à "Placed".</p>
+                        <h4>Étape 3 : Placer la Commande</h4>
+                        <p>Une fois sauvegardée, cliquez sur <code>Place Order</code> pour envoyer la PO au fournisseur. Le statut passe à "Placed".</p>
                     </div>
 
                     <div class="step">
-                        <h4>Étape 4: Recevoir le stock</h4>
-                        <p>Quand la commande arrive, cliquez <code>Receive</code>. Unleashed crée alors un reçu (Receipt) pour enregistrer le stock entrant.</p>
+                        <h4>Étape 4 : Recevoir le Stock</h4>
+                        <p>Lorsque la commande arrive, cliquez sur <code>Receive</code>. Unleashed crée ensuite un reçu pour enregistrer le stock entrant :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Vérifiez que les quantités correspondent à la commande</li>
+                            <li>Notez les discordances (ex: "5 unités manquantes")</li>
+                            <li>Cliquez sur <code>Confirm</code></li>
+                        </ol>
+                        <p>Une fois confirmé, le stock est ajouté à l'entrepôt et la PO passe au statut "Received" ou "Completed".</p>
+                    </div>
+
+                    <h3>Délais d'Approvisionnement des Fournisseurs sur les PO</h3>
+
+                    <div class="step">
+                        <h4>Date de Livraison Attendue</h4>
+                        <p>Lorsque vous créez une PO, Unleashed calcule automatiquement la date de livraison attendue :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li>Si le fournisseur a un <strong>délai d'approvisionnement défini</strong> (ex: 10 jours), la date de livraison est : Date de Commande + 10 jours</li>
+                            <li>Si aucun délai d'approvisionnement n'est défini, la date de livraison est par défaut la date de la commande (vous devez la remplir manuellement)</li>
+                        </ul>
+                        <p>Cela vous aide à planifier la disponibilité des stocks et à prévoir l'arrivée des PO.</p>
+                    </div>
+
+                    <h3>Importation de Commandes Manquantes des Fournisseurs</h3>
+
+                    <div class="step">
+                        <h4>Remplissage Rétrospectif des PO Historiques</h4>
+                        <p>Si vous devez importer les commandes passées (ex: les commandes Shopify qui ont déclenché les PO dans Unleashed) :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Allez à <code>Integrations</code> (si applicable) ou créez manuellement des PO</li>
+                            <li>Utilisez <code>Import/Export</code> → <code>Purchase Orders</code> pour l'importation en masse</li>
+                            <li>Créez un CSV avec : Code Fournisseur, Code Produit, Quantité, Prix Unitaire, Entrepôt</li>
+                            <li>Téléchargez et confirmez</li>
+                        </ol>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>CRITIQUE : Avertissement sur le Bug de Commande en Retard</strong><br>
+                            <strong>NE CRÉEZ PAS une Commande Fournisseur à partir d'une Commande Client.</strong> Il y a un bug connu : si vous cliquez sur "Create PO" sur une Commande Client, cela crée une PO liée qui peut faire compter deux fois le stock (une fois dans la SO, une fois dans la PO), ce qui entraîne une inventaire gonflée. Au lieu de cela, créez les PO manuellement dans la section PO ou via le menu d'achat. Si vous le faites accidentellement, utilisez <strong>Transaction Inquiry</strong> pour identifier et supprimer le mouvement de stock dupliqué.
+                        </div>
                     </div>
 
                     <div class="alert alert-success">
                         <span class="alert-icon">✓</span>
                         <div>
-                            <strong>Conseil:</strong> Toujours vérifier les quantités reçues par rapport aux quantités commandées. Si une discordance existe, notez-la dans la réception.
+                            <strong>Conseil :</strong> Vérifiez toujours les quantités reçues par rapport au bon de livraison ou à la facture. S'il y a une discordance (ex: 5 unités manquantes), notez-le dans les commentaires de réception et assurez le suivi auprès du fournisseur.
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Section 4: Sales Orders -->
+            <!-- Section 7: Sales Orders -->
             <section class="section" id="sales">
                 <div class="section-header">
-                    <h2>Commandes Clients (Sales Orders)</h2>
+                    <h2>Commandes Clients</h2>
                     <div class="section-toggle">▼</div>
                 </div>
                 <div class="section-content">
-                    <p>Les commandes clients (SO) enregistrent les ventes auprès des clients B2C et B2B.</p>
+                    <p>Les commandes client (SO) enregistrent les ventes aux clients B2C et B2B. Elles suivent les commandes client, l'allocation des stocks et le statut de traitement.</p>
 
                     <div class="step">
-                        <h4>Étape 1: Accéder aux commandes clients</h4>
-                        <p>Menu → <code>Sales Orders</code> pour voir toutes les SO. Filtrez par statut : Open, Completed, Backordered.</p>
+                        <h4>Étape 1 : Accédez aux Commandes Clients</h4>
+                        <p>Menu → <code>Sales Orders</code> pour afficher toutes les SO. Filtrez par statut : Open, Placed, Backordered, Shipped, Completed.</p>
                     </div>
 
                     <div class="screenshot">
                         <img src="images/08_sales_orders_list.png" alt="Sales Orders" class="clickable-img">
-                        <div class="screenshot-caption">Liste des commandes clients / Sales orders list</div>
+                        <div class="screenshot-caption">Liste des commandes clients</div>
                     </div>
 
                     <div class="step">
-                        <h4>Étape 2: Créer une nouvelle SO</h4>
-                        <p>Cliquez sur <code>+ New Sales Order</code>:</p>
+                        <h4>Étape 2 : Créer une Nouvelle SO (Commande Manuelle)</h4>
+                        <p>Pour les commandes wholesale ou manuelles (les commandes Shopify arrivent automatiquement) :</p>
                         <ol style="margin-left: 1rem;">
-                            <li>Sélectionnez le <strong>Client (Customer)</strong></li>
-                            <li>Sélectionnez l'<strong>Entrepôt (Warehouse)</strong> d'expédition</li>
-                            <li>Ajoutez les <strong>lignes de produits</strong></li>
-                            <li>Vérifiez les <strong>disponibilités en stock</strong> (Stock availability)</li>
-                            <li>Définissez la <strong>date de livraison souhaitée</strong> (Desired delivery date)</li>
-                            <li>Cliquez <code>Save</code></li>
+                            <li>Cliquez sur <code>+ New Sales Order</code></li>
+                            <li>Sélectionnez le <strong>Client</strong> (ex: "Shopify", "ACME-WHOLESALE")</li>
+                            <li>Sélectionnez l'<strong>Entrepôt</strong> pour expédition</li>
+                            <li>Ajoutez les <strong>lignes de produits</strong> avec quantités</li>
+                            <li>Vérifiez la <strong>disponibilité des stocks</strong> (vert = disponible, rouge = hors stock)</li>
+                            <li>Définissez la <strong>date de livraison souhaitée</strong></li>
+                            <li>Assignez un <strong>Groupe de Vente</strong> (ex: "Shopify", "API/POS", "Wholesale") pour rapports</li>
+                            <li>Cliquez sur <code>Save</code></li>
                         </ol>
                     </div>
 
                     <div class="screenshot">
                         <img src="images/08_sales_orders_list.png" alt="Create SO" class="clickable-img">
-                        <div class="screenshot-caption">Création d'une commande client / Create sales order</div>
+                        <div class="screenshot-caption">Créer une commande client</div>
                     </div>
 
                     <div class="step">
-                        <h4>Étape 3: Préparer et expédier la commande</h4>
-                        <p>Lorsque la commande est prête, cliquez <code>Dispatch</code> ou <code>Ship</code>. Unleashed enregistre le départ du stock et génère un bon d'expédition.</p>
+                        <h4>Étape 3 : Groupes de Vente pour l'Analyse</h4>
+                        <p>Toujours assigner un Groupe de Vente à chaque commande. Cela permet les rapports par canal :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Shopify</strong> – Commandes e-commerce (auto-assignées pour les commandes Shopify)</li>
+                            <li><strong>API/POS</strong> – Commandes de magasins physiques à partir du script POS</li>
+                            <li><strong>Wholesale</strong> – Commandes wholesale B2B</li>
+                        </ul>
+                        <p>Ces groupes sont utilisés dans les tableaux de bord et les rapports pour analyser les revenus, la marge et l'inventaire par canal.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 4 : Préparer et Traiter la Commande</h4>
+                        <p>Lorsque la commande est prête à être expédiée :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Dans la SO, cliquez sur <code>Dispatch</code> ou <code>Ship</code> (selon la version d'Unleashed)</li>
+                            <li>Vérifiez les quantités et confirmez l'expédition</li>
+                            <li>Unleashed enregistre le départ du stock et génère un document d'expédition</li>
+                            <li>Mettez à jour le statut en "Shipped" ou "Completed"</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Mappage du Statut des Commandes Shopify</h4>
+                        <p>Les commandes Shopify apparaissent dans Unleashed avec ces statuts :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Parked/Placed :</strong> Commande reçue de Shopify, en attente de traitement</li>
+                            <li><strong>Backordered :</strong> Expédition partielle envoyée, solde en attente de stock (rare – évitez de créer manuellement des PO à partir de SO)</li>
+                            <li><strong>Shipped/Completed :</strong> Commande traitée et marquée complète dans Unleashed</li>
+                        </ul>
+                    </div>
+
+                    <h3>Différence Entre Traiter dans Shopify vs Unleashed</h3>
+
+                    <div class="step">
+                        <h4>Bonne Pratique : Traiter d'abord dans Shopify</h4>
+                        <p>Le flux de travail recommandé est :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li><strong>Dans Shopify :</strong> Emballez la commande, imprimez l'étiquette, marquez les articles comme "Fulfillés" dans Shopify</li>
+                            <li><strong>Dans Unleashed :</strong> Le statut de la commande se met à jour automatiquement (généralement en Shipped/Completed)</li>
+                            <li>Le stock est automatiquement déduit de l'inventaire quand la synchronisation Shopify traite le traitement</li>
+                        </ol>
                     </div>
 
                     <div class="alert alert-warning">
                         <span class="alert-icon">⚠</span>
                         <div>
-                            <strong>Important:</strong> Vérifiez toujours que le stock est disponible avant de créer une SO. Si le stock est insuffisant, la commande passera en "Backordered".
+                            <strong>Important :</strong> Vérifiez toujours que le stock est disponible avant de créer une SO. Si le stock est insuffisant, la commande peut être mise en "Backordered", ce qui complique la clôture de fin de mois. Vérifiez l'indicateur de stock (vert = disponible, rouge = insuffisant) avant de confirmer la commande.
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Section 5: Stock Adjustments -->
+            <!-- Section 8: Stock Adjustments -->
             <section class="section" id="stock-adjust">
                 <div class="section-header">
-                    <h2>Ajustements de Stock (Stock Adjustments)</h2>
+                    <h2>Ajustements de Stock</h2>
                     <div class="section-toggle">▼</div>
                 </div>
                 <div class="section-content">
-                    <p>Les ajustements permettent de corriger les erreurs de comptage, enregistrer les casses, ou les pertes de stock.</p>
+                    <p>Les ajustements vous permettent de corriger les erreurs de comptage, d'enregistrer les casses ou les pertes de stock. Ils sont essentiels pour maintenir des niveaux d'inventaire précis.</p>
 
                     <div class="step">
-                        <h4>Étape 1: Accéder aux ajustements</h4>
-                        <p>Menu → <code>Stock</code> → <code>Stock Adjustments</code> pour voir tous les ajustements.</p>
+                        <h4>Étape 1 : Accédez aux Ajustements</h4>
+                        <p>Menu → <code>Stock</code> → <code>Stock Adjustments</code> pour afficher tous les ajustements.</p>
                     </div>
 
                     <div class="screenshot">
                         <img src="images/12_stock_adjustment_detail.png" alt="Stock Adjustments" class="clickable-img">
-                        <div class="screenshot-caption">Ajustements de stock / Stock adjustments</div>
+                        <div class="screenshot-caption">Ajustements de stock</div>
                     </div>
 
                     <div class="step">
-                        <h4>Étape 2: Créer un nouvel ajustement</h4>
-                        <p>Cliquez <code>+ New Adjustment</code>:</p>
+                        <h4>Étape 2 : Créer un Nouvel Ajustement</h4>
+                        <p>Cliquez sur <code>+ New Adjustment</code> :</p>
                         <ol style="margin-left: 1rem;">
-                            <li>Sélectionnez l'<strong>Entrepôt (Warehouse)</strong></li>
-                            <li>Sélectionnez le <strong>Produit (Product)</strong></li>
-                            <li>Entrez la <strong>quantité ajustée</strong> (positive = ajout, négatif = retrait)</li>
-                            <li>Entrez un <strong>motif (Reason)</strong> : Damage, Shrinkage, Inventory Count, etc.</li>
-                            <li>Cliquez <code>Save</code></li>
+                            <li>Sélectionnez l'<strong>Entrepôt</strong> (ex: DEPOT_FEEL, CLICHY)</li>
+                            <li>Ajoutez les <strong>lignes d'ajustement</strong> :
+                                <ul style="margin-left: 1rem;">
+                                    <li>Sélectionnez le <strong>Produit</strong></li>
+                                    <li>Entrez la <strong>Quantité</strong> (positif = ajouter stock, négatif = retirer stock)</li>
+                                    <li>Sélectionnez une <strong>Raison</strong> (voir Raisons d'Ajustement Courants ci-dessous)</li>
+                                </ul>
+                            </li>
+                            <li>Ajoutez des notes si nécessaire (ex: "Flacon de sérum cassé trouvé au magasin de Clichy")</li>
+                            <li>Cliquez sur <code>Save</code></li>
                         </ol>
+                    </div>
+
+                    <h3>Raisons d'Ajustement Courants</h3>
+                    <ul class="content-list">
+                        <li><strong>Inventory Count :</strong> Discordance trouvée lors d'un comptage physique</li>
+                        <li><strong>Damage :</strong> Produits endommagés découverts (bouteilles cassées, expirés, etc.)</li>
+                        <li><strong>Shrinkage :</strong> Perte inexpliquée (vol, évaporation, etc.)</li>
+                        <li><strong>Stock Transfer :</strong> Transfert manuel entre entrepôts (préférez utiliser Warehouse Transfers à la place)</li>
+                        <li><strong>Sample :</strong> Prélevé pour démonstration ou test du personnel</li>
+                        <li><strong>Return :</strong> Retour client non enregistré via le système SO</li>
+                        <li><strong>Recount :</strong> Correction après un recomptage confirmant la discordance</li>
+                    </ul>
+
+                    <h3>Ajustements de Stock de Fin de Mois</h3>
+
+                    <div class="step">
+                        <h4>Gestion des Pénuries de Stock en Fin de Mois</h4>
+                        <p>Lors de la clôture d'un mois dans Unleashed, vous découvrez peut-être que les niveaux de stock ne correspondent pas aux commandes. C'est courant avec les commandes POS et les magasins physiques. Solution :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Essayez de compléter en masse toutes les SO du mois</li>
+                            <li>Si le système affiche "stock insuffisant", notez quels produits sont en retard</li>
+                            <li>Créez un ajustement de stock avec la raison "Inventory Count" pour chaque pénurie</li>
+                            <li>Réessayez la complétion en masse</li>
+                        </ol>
+                        <p>Exemple : "Le canal API a vendu 5 unités de SERUM-001 mais Unleashed n'en avait que 3 en stock. Créez un ajustement : +2 unités, raison : Inventory Count"</p>
                     </div>
 
                     <div class="alert alert-danger">
                         <span class="alert-icon">⚠</span>
                         <div>
-                            <strong>Attention:</strong> Les ajustements de stock affectent directement les niveaux et les rapports. Enregistrez toujours un motif clair pour traçabilité.
+                            <strong>Attention :</strong> Les ajustements de stock affectent directement les niveaux d'inventaire et les rapports. Enregistrez toujours une raison claire pour la traçabilité. Si vous ajustez le stock de manière incorrecte, cela fausse les rapports et les calculs COGS.
                         </div>
                     </div>
-
-                    <h3 style="margin-top: 2rem; color: var(--primary);">Motifs courants d'ajustement</h3>
-                    <ul class="content-list">
-                        <li><strong>Inventory Count:</strong> Discordance trouvée lors d'un inventaire physique</li>
-                        <li><strong>Damage:</strong> Produits endommagés découverts</li>
-                        <li><strong>Shrinkage:</strong> Perte non expliquée / Pertes évaluées</li>
-                        <li><strong>Stock Transfer:</strong> Transfert manuel entre entrepôts</li>
-                        <li><strong>Sample:</strong> Prélèvement pour démonstration/test</li>
-                        <li><strong>Return:</strong> Retour client non enregistré en tant que tel</li>
-                    </ul>
                 </div>
             </section>
 
-            <!-- Section 6: Warehouse Transfers -->
+            <!-- Section 9: Warehouse Transfers -->
             <section class="section" id="warehouse">
                 <div class="section-header">
-                    <h2>Transferts entre Entrepôts (Warehouse Transfers)</h2>
+                    <h2>Transferts entre Entrepôts</h2>
                     <div class="section-toggle">▼</div>
                 </div>
                 <div class="section-content">
-                    <p>Les transferts permettent de déplacer du stock d'un entrepôt à un autre (ex: du dépôt vers une boutique).</p>
+                    <p>Les transferts vous permettent de déplacer le stock d'un entrepôt à un autre (ex: du dépôt vers un magasin). Utilisez-le pour les mouvements d'inventaire prévus.</p>
 
                     <div class="step">
-                        <h4>Étape 1: Accéder aux transferts</h4>
+                        <h4>Étape 1 : Accédez aux Transferts</h4>
                         <p>Menu → <code>Stock</code> → <code>Warehouse Transfers</code>.</p>
                     </div>
 
                     <div class="screenshot">
                         <img src="images/13_warehouse_transfers.png" alt="Warehouse Transfers" class="clickable-img">
-                        <div class="screenshot-caption">Transferts entre entrepôts / Warehouse transfers</div>
+                        <div class="screenshot-caption">Transferts entre entrepôts</div>
                     </div>
 
                     <div class="step">
-                        <h4>Étape 2: Créer un nouveau transfert</h4>
-                        <p>Cliquez <code>+ New Transfer</code>:</p>
+                        <h4>Étape 2 : Créer un Nouveau Transfert</h4>
+                        <p>Cliquez sur <code>+ New Transfer</code> :</p>
                         <ol style="margin-left: 1rem;">
-                            <li>Sélectionnez l'<strong>entrepôt source (Source Warehouse)</strong></li>
-                            <li>Sélectionnez l'<strong>entrepôt destination (Destination Warehouse)</strong></li>
-                            <li>Ajoutez les <strong>lignes de produits</strong></li>
-                            <li>Entrez les <strong>quantités à transférer</strong></li>
-                            <li>Cliquez <code>Save</code></li>
+                            <li>Sélectionnez l'<strong>Entrepôt Source</strong> (ex: DEPOT_FEEL)</li>
+                            <li>Sélectionnez l'<strong>Entrepôt Destination</strong> (ex: magasin CLICHY)</li>
+                            <li>Ajoutez les <strong>lignes de produits</strong> avec quantités à transférer</li>
+                            <li>Cliquez sur <code>Save</code></li>
                         </ol>
                     </div>
 
                     <div class="screenshot">
                         <img src="images/13_warehouse_transfers.png" alt="Create Transfer" class="clickable-img">
-                        <div class="screenshot-caption">Création d'un transfert / Create transfer</div>
+                        <div class="screenshot-caption">Créer un transfert</div>
                     </div>
 
                     <div class="step">
-                        <h4>Étape 3: Confirmer la réception</h4>
-                        <p>Une fois le stock physiquement transféré et reçu, cliquez <code>Receive</code> pour finaliser le transfert. Le stock est alors débité de l'entrepôt source et crédité à la destination.</p>
+                        <h4>Étape 3 : Confirmer la Réception</h4>
+                        <p>Une fois le stock physiquement transféré et reçu, cliquez sur <code>Receive</code> pour finaliser le transfert :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Vérifiez que les quantités correspondent à ce qui a été reçu</li>
+                            <li>Notez les discordances (endommagé en transit, etc.)</li>
+                            <li>Cliquez sur <code>Confirm</code></li>
+                        </ol>
+                        <p>Le stock est alors débité de l'entrepôt source et crédité à la destination.</p>
+                    </div>
+
+                    <h3>Stratégie d'Entrepôt Simplifiée</h3>
+
+                    <div class="step">
+                        <h4>Entrepôt Par Défaut Shopify → Stratégie de Remplissage du Dépôt</h4>
+                        <p>Pour éviter des transferts constants, Feel My Skin utilise cette approche simplifiée :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li><strong>Commandes Shopify :</strong> Tous les itinéraires vers l'entrepôt "Shopify" par défaut (défini dans la config du Hub Shopify)</li>
+                            <li><strong>Transferts de Remplissage du Dépôt :</strong> Déplacez périodiquement le stock de DEPOT_FEEL vers l'entrepôt Shopify en un transfert groupé</li>
+                            <li><strong>Magasins physiques :</strong> Le stock est conservé à chaque emplacement du magasin et géré via les commandes POS/API</li>
+                        </ul>
+                        <p>Cela réduit le nombre de transferts et rend l'inventaire plus facile à suivre.</p>
                     </div>
 
                     <div class="alert alert-success">
                         <span class="alert-icon">✓</span>
                         <div>
-                            <strong>Conseil:</strong> Planifiez les transferts régulièrement pour équilibrer le stock entre DEPOT_FEEL, les trois boutiques Paris, et les entrepôts roumains.
+                            <strong>Conseil :</strong> Programmez les transferts régulièrement (ex: hebdomadaire ou bihebdomadaire) pour équilibrer le stock entre DEPOT_FEEL, les trois magasins de Paris et les entrepôts roumains. Utilisez le Rapport de Réapprovision pour voir les emplacements à faible stock et planifier les transferts.
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Section 7: Daily Checks -->
-            <section class="section" id="daily">
+            <!-- Section 10: Reports & Dashboards -->
+            <section class="section" id="reports">
                 <div class="section-header">
-                    <h2>Vérifications Quotidiennes (Daily Checks)</h2>
+                    <h2>Rapports et Tableaux de Bord</h2>
                     <div class="section-toggle">▼</div>
                 </div>
                 <div class="section-content">
-                    <p>Chaque jour, vous devriez effectuer certaines vérifications pour maintenir la santé du système Unleashed.</p>
+                    <p>Unleashed fournit des rapports puissants et des tableaux de bord personnalisés pour analyser l'inventaire, la rentabilité et les ventes par canal, produit et entrepôt.</p>
+
+                    <h3>Rapports Standards</h3>
 
                     <div class="step">
-                        <h4>Matin: Vérifier les commandes en attente (Morning: Check pending orders)</h4>
-                        <p>Ouvrez le <strong>Dashboard</strong> et recherchez:</p>
+                        <h4>Inquiry Stock en Main</h4>
+                        <p>Affichage des niveaux de stock actuels dans tous les entrepôts :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Menu → <code>Reports</code> → <code>Stock on Hand Inquiry</code></li>
+                            <li>Filtrez par :
+                                <ul style="margin-left: 1rem;">
+                                    <li>Entrepôt (DEPOT_FEEL, CLICHY, GAITE, etc.)</li>
+                                    <li>Code Produit ou Groupe</li>
+                                    <li>Statut (Actif, Obsolète)</li>
+                                </ul>
+                            </li>
+                            <li>Lancez le rapport pour voir :
+                                <ul style="margin-left: 1rem;">
+                                    <li>Unités en main (stock physique)</li>
+                                    <li>Stock engagé (alloué aux SO)</li>
+                                    <li>Stock disponible (en main moins engagé)</li>
+                                    <li>Coût unitaire et valeur totale</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Inquiry Marge Produit</h4>
+                        <p>Analyser la rentabilité par produit et canal :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Menu → <code>Reports</code> → <code>Product Margin Inquiry</code></li>
+                            <li>Grouper par <code>Code Produit</code> ou <code>Groupe Produit</code></li>
+                            <li>Filtrez par :
+                                <ul style="margin-left: 1rem;">
+                                    <li>Plage de dates (ex: "1er janvier à 31 janvier" pour un mois)</li>
+                                    <li>Groupe de Vente (Shopify, API, Wholesale) pour comparaison par canal</li>
+                                </ul>
+                            </li>
+                            <li>Le rapport affiche :
+                                <ul style="margin-left: 1rem;">
+                                    <li>Revenu (ventes brutes)</li>
+                                    <li>COGS (coût des marchandises vendues)</li>
+                                    <li>Bénéfice Brut (Revenu - COGS)</li>
+                                    <li>Marge Brute % (Bénéfice / Revenu)</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <p>Utilisez-le pour identifier les produits à marge élevée vs faible marge et optimiser la stratégie de tarification.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Rapport d'Analyse des Coûts</h4>
+                        <p>Plongée profonde dans les coûts d'inventaire et l'évaluation :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Menu → <code>Reports</code> → <code>Costing Analysis Report</code></li>
+                            <li>Affiche :
+                                <ul style="margin-left: 1rem;">
+                                    <li>Coût moyen à terre par unité (ALC)</li>
+                                    <li>Valeur d'inventaire totale</li>
+                                    <li>COGS par transaction</li>
+                                    <li>Vérification de la méthode de répartition des coûts</li>
+                                </ul>
+                            </li>
+                            <li>Utilisez-le pour identifier les problèmes COGS (ex: COGS gonflé en raison d'une mauvaise méthode de distribution des coûts)</li>
+                        </ol>
+                    </div>
+
+                    <h3>Tableaux de Bord Personnalisés</h3>
+
+                    <div class="step">
+                        <h4>Création d'un Tableau de Bord Personnalisé</h4>
+                        <p>Créez des tableaux de bord adaptés à votre rôle :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Menu → <code>Dashboards</code></li>
+                            <li>Cliquez sur <code>+ New Dashboard</code> ou <code>Edit Dashboard</code></li>
+                            <li>Choisissez les widgets à ajouter (Graphique, Grille, KPI, Tableau, etc.)</li>
+                            <li>Pour chaque widget :
+                                <ul style="margin-left: 1rem;">
+                                    <li>Sélectionnez la source de données (Ventes, Inventaire, Achats, etc.)</li>
+                                    <li>Choisissez la métrique (Revenu, Bénéfice Brut, Comptage Stock, etc.)</li>
+                                    <li>Grouper par entrepôt, produit, canal, date, etc.</li>
+                                    <li>Définir la plage horaire (quotidienne, hebdomadaire, mensuelle)</li>
+                                </ul>
+                            </li>
+                            <li>Cliquez sur <code>Save</code></li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Filtre Tableau de Bord par Canal de Vente</h4>
+                        <p>Exemple : Affichage de la rentabilité brute classée par Groupe de Vente :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Créez un widget de graphique avec :
+                                <ul style="margin-left: 1rem;">
+                                    <li><strong>Source de Données :</strong> Commandes Client</li>
+                                    <li><strong>Métrique :</strong> Pourcentage de Bénéfice Brut</li>
+                                    <li><strong>Grouper Par :</strong> Groupe de Vente (affiche les barres Shopify, API, Wholesale)</li>
+                                    <li><strong>Plage Horaire :</strong> 30 derniers jours</li>
+                                </ul>
+                            </li>
+                            <li>Cliquez sur n'importe quelle barre (ex: "Shopify") pour explorer et voir les produits dans ce canal</li>
+                            <li>Cliquez à nouveau sur un produit spécifique pour voir tous les détails de ce produit dans ce canal</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Alertes de Stock Faible via Onglet "Show"</h4>
+                        <p>Surveillez les produits approchant des niveaux de stock minimum :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Menu → <code>Products</code></li>
+                            <li>Cliquez sur l'onglet de déroulement/filtre <code>Show</code></li>
+                            <li>Sélectionnez <code>Low Stock</code> ou option similaire</li>
+                            <li>Cela filtre pour afficher uniquement les produits où "On Hand" est proche ou en dessous du "Reorder Level"</li>
+                            <li>Créez des PO pour ces produits afin de réapprovisionner le stock</li>
+                        </ol>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <span class="alert-icon">✓</span>
+                        <div>
+                            <strong>Conseil :</strong> Créez des tableaux de bord distincts pour différents rôles : Responsable de Magasin (inventaire du magasin), Responsable des Achats (statut PO et délais d'approvisionnement), Finance (analyse des marges et COGS).
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 11: Month-End Close -->
+            <section class="section" id="month-end">
+                <div class="section-header">
+                    <h2>Clôture de Fin de Mois</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>La clôture de fin de mois est un processus critique. Elle finalise toutes les transactions, garantit l'exactitude de l'inventaire et ferme la période comptable afin que les rapports reflètent les chiffres finaux.</p>
+
+                    <h3>Processus de Fin de Mois Étape par Étape</h3>
+
+                    <div class="step">
+                        <h4>Étape 1 : Compléter Toutes les Commandes Client Ouvertes (En Masse)</h4>
+                        <p>Dans les derniers jours du mois, complétez toutes les SO :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Menu → <code>Sales Orders</code></li>
+                            <li>Filtrez par <code>Status: Open</code> ou <code>Placed</code></li>
+                            <li>Sélectionnez TOUTES les commandes (utilisez la case à cocher en haut pour sélectionner toutes les pages, répétez pour toutes les pages)</li>
+                            <li>Cliquez sur <code>Bulk Actions</code> → <code>Complete</code></li>
+                            <li>Cliquez sur <code>Process</code></li>
+                        </ol>
+                        <p><strong>Résultat Attendu :</strong> Le système traite toutes les commandes et met à jour le stock. Certaines peuvent réussir, d'autres peuvent échouer si le stock est insuffisant.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 2 : Gérer les Commandes Échouées (Ajustements de Stock)</h4>
+                        <p>Pour les commandes qui n'ont pas pu être complétées en raison d'un stock insuffisant :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Identifiez les produits en retard (le système les listera)</li>
+                            <li>Pour chaque pénurie, créez un <strong>Ajustement de Stock</strong> :
+                                <ul style="margin-left: 1rem;">
+                                    <li>Allez à <code>Stock</code> → <code>Stock Adjustments</code></li>
+                                    <li>Créez un ajustement avec <code>Reason: Inventory Count</code></li>
+                                    <li>Ajoutez les unités manquantes (ex: si SERUM-001 a besoin de 3 unités supplémentaires, ajustez +3)</li>
+                                    <li>Enregistrez</li>
+                                </ul>
+                            </li>
+                            <li>Réexécutez la complétion en masse pour les commandes échouées</li>
+                        </ol>
+                        <p>Répétez jusqu'à ce que toutes les commandes soient terminées avec succès.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 3 : Vérifier la Réconciliation des Stocks</h4>
+                        <p>Après avoir complété toutes les commandes, vérifiez que le stock physique correspond à Unleashed :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Lancez <code>Stock on Hand Inquiry</code> pour chaque entrepôt</li>
+                            <li>Comparez les chiffres d'Unleashed à votre comptage physique (si disponible)</li>
+                            <li>Si des discordances existent, créez des ajustements avec la raison "Recount" pour les corriger</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 4 : Fermer la Période (Comptabilité)</h4>
+                        <p>Une fois que toutes les commandes sont terminées et que le stock est réconcilié, fermez la période :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Menu → <code>Settings</code> → <code>Period Management</code> (ou similaire, selon votre version Unleashed)</li>
+                            <li>Sélectionnez le mois/période à fermer (ex: "Janvier 2026")</li>
+                            <li>Cliquez sur <code>Close Period</code></li>
+                            <li>Confirmez que vous souhaitez finaliser cette période (généralement impossible modifier les transactions après fermeture)</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Étape 5 : Générer les Rapports Finaux</h4>
+                        <p>Une fois la période fermée, lancez les rapports de fin de mois pour la comptabilité/finances :</p>
                         <ul style="margin-left: 1rem;">
-                            <li>Commandes clients en statut "Open" prêtes à être expédiées</li>
-                            <li>Commandes fournisseurs en attente de réception</li>
-                            <li>Stocks faibles (Stock on-hand proche du Reorder Level)</li>
+                            <li><strong>Inquiry Marge Produit</strong> – Bénéfice brut par produit et canal</li>
+                            <li><strong>Rapport d'Analyse des Coûts</strong> – COGS total et valeur d'inventaire</li>
+                            <li><strong>Inquiry Stock en Main</strong> – Niveaux d'inventaire finaux par entrepôt</li>
+                            <li>Exportez en CSV et fournissez à votre équipe comptabilité/finance</li>
+                        </ul>
+                    </div>
+
+                    <h3>Problèmes Courants de Fin de Mois & Solutions</h3>
+
+                    <div class="step">
+                        <h4>Problème : Erreurs "Stock Insuffisant" lors de la Complétion en Masse des Commandes</h4>
+                        <p><strong>Cause :</strong> Les commandes POS et les commandes des magasins physiques ont un suivi des stocks imprécis. Le système affiche moins d'unités en main que réellement vendues.</p>
+                        <p><strong>Solution :</strong> Créez des ajustements de stock pour corriger la différence et réexécutez la complétion en masse.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Problème : COGS Apparaît Gonflé</h4>
+                        <p><strong>Cause :</strong> La méthode de distribution des coûts est définie sur "par valeur" plutôt que "par quantité de base".</p>
+                        <p><strong>Solution :</strong> Vérifiez la méthode de distribution des coûts de chaque produit. Changez en "par quantité de base" et recalculez.</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Problème : Les Discordances de Stock Persistent</h4>
+                        <p><strong>Cause :</strong> Commandes manquantes, importations POS incorrectes ou transferts de stock dupliqués.</p>
+                        <p><strong>Solution :</strong> Utilisez <code>Transaction Inquiry</code> pour tracer les mouvements de stock et identifier la source de la discordance.</p>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <span class="alert-icon">⚠</span>
+                        <div>
+                            <strong>Bonne Pratique :</strong> Prévoyez 2-3 heures pour la clôture de fin de mois, surtout les premiers mois. Le processus deviendra plus rapide une fois que vous comprendrez vos modèles de données et que la précision des stocks s'améliorera.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <span class="alert-icon">✓</span>
+                        <div>
+                            <strong>Conseil :</strong> Après avoir fermé une période, créez une sauvegarde ou un instantané des données. Cela protège contre les modifications accidentelles et fournit une piste d'audit.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Daily Checks -->
+            <section class="section" id="daily">
+                <div class="section-header">
+                    <h2>Vérifications Quotidiennes</h2>
+                    <div class="section-toggle">▼</div>
+                </div>
+                <div class="section-content">
+                    <p>Chaque jour, effectuez ces vérifications pour maintenir la santé du système et détecter les problèmes tôt.</p>
+
+                    <div class="step">
+                        <h4>Matin : Vérifier les Commandes en Attente (5 minutes)</h4>
+                        <p>Ouvrez le <strong>Tableau de Bord</strong> et examinez :</p>
+                        <ul style="margin-left: 1rem;">
+                            <li>Commandes client en statut "Open" ou "Placed" prêtes à être expédiées (surtout Shopify)</li>
+                            <li>Commandes fournisseur en attente de réception (vérifiez les dates d'arrivée attendue)</li>
+                            <li>Alertes de stock faible (produits approchant du niveau de réapprovision)</li>
+                            <li>Tout retard ou transfert bloqué</li>
                         </ul>
                     </div>
 
                     <div class="screenshot">
                         <img src="images/01_dashboard.png" alt="Daily Dashboard" class="clickable-img">
-                        <div class="screenshot-caption">Tableau de bord quotidien / Daily dashboard view</div>
+                        <div class="screenshot-caption">Vue du tableau de bord quotidien</div>
                     </div>
 
                     <div class="step">
-                        <h4>Midi/Après-midi: Confirmer les réceptions (Midday/Afternoon: Confirm receipts)</h4>
-                        <p>Vérifiez les <code>Purchase Orders</code> en statut "Placed". Si les marchandises sont arrivées, cliquez <code>Receive</code> et enregistrez.</p>
+                        <h4>Midi/Après-Midi : Confirmer les Réceptions (5-10 minutes)</h4>
+                        <p>Vérifiez <code>Purchase Orders</code> en statut "Placed". Si les marchandises sont arrivées :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Vérifiez la livraison par rapport à la PO</li>
+                            <li>Cliquez sur <code>Receive</code> sur la PO</li>
+                            <li>Confirmez les quantités et notez les discordances</li>
+                            <li>Cliquez sur <code>Confirm</code></li>
+                        </ol>
                     </div>
 
                     <div class="step">
-                        <h4>Fin de journée: Clôturer les commandes (End of day: Close orders)</h4>
-                        <p>Marquez les commandes expédiées comme <code>Completed</code>. Cela met à jour les statistiques et nettoie la liste des tâches en cours.</p>
+                        <h4>Fin de Journée : Fermer les Commandes & Vérifier les Expéditions (10 minutes)</h4>
+                        <p>Avant de partir pour la journée :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Pour les commandes Shopify traitées dans Shopify, vérifiez que le statut d'Unleashed est passé à "Shipped" ou "Completed"</li>
+                            <li>Pour les commandes POS/détail, assurez-vous qu'elles sont marquées comme expédiées/complétées</li>
+                            <li>Confirmez qu'aucune commande ne reste bloquée en statut "Parked" ou "Placed" de manière inattendue</li>
+                        </ol>
                     </div>
 
                     <div class="screenshot">
                         <img src="images/01_dashboard.png" alt="End of Day Checks" class="clickable-img">
-                        <div class="screenshot-caption">Vérifications de fin de journée / End of day checks</div>
+                        <div class="screenshot-caption">Vérifications de fin de journée</div>
                     </div>
 
                     <div class="step">
-                        <h4>Hebdomadaire: Rapport de stock (Weekly: Stock report)</h4>
-                        <p>Chaque vendredi, générez un <strong>Stock Report</strong> pour voir le niveau de chaque produit par entrepôt. Identifiez les stocks faibles ou excédentaires.</p>
+                        <h4>Hebdomadaire : Rapport de Stock (Vendredi, 15 minutes)</h4>
+                        <p>Tous les vendredis, générez un <strong>Rapport de Stock</strong> pour évaluer la santé de l'inventaire :</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Lancez <code>Stock on Hand Inquiry</code> pour tous les entrepôts</li>
+                            <li>Identifiez :
+                                <ul style="margin-left: 1rem;">
+                                    <li>Stock faible ou négatif</li>
+                                    <li>Inventaire excédentaire (articles surstock)</li>
+                                    <li>Produits approchant l'expiration (si suivi)</li>
+                                </ul>
+                            </li>
+                            <li>Créez des PO pour les articles à stock faible</li>
+                            <li>Planifiez les transferts d'entrepôt pour équilibrer le stock entre les emplacements</li>
+                        </ol>
                     </div>
 
-                    <h3 style="margin-top: 2rem; color: var(--primary);">Points de contrôle clés</h3>
+                    <h3>Liste de Contrôle des Points de Contrôle Quotidiens</h3>
                     <ul class="content-list">
-                        <li>✓ Aucune commande en statut "Backorder" depuis plus de 3 jours</li>
-                        <li>✓ Stock minimum (Reorder Level) atteint → Créer une PO</li>
-                        <li>✓ Tous les transferts entre entrepôts confirmés (Received)</li>
+                        <li>✓ Aucune commande en statut "Backorder" depuis plus de 3 jours (escaladez si bloquée)</li>
+                        <li>✓ Stock minimum (Reorder Level) atteint → Créer une PO immédiatement</li>
+                        <li>✓ Tous les transferts d'entrepôts confirmés (statut Received)</li>
+                        <li>✓ Toutes les réceptions PO confirmées dans les 24 heures suivant l'arrivée</li>
                         <li>✓ Aucune discordance entre Unleashed et le comptage physique</li>
-                        <li>✓ Prix de vente et d'achat à jour dans la fiche produit</li>
+                        <li>✓ Prix de vente et d'achat à jour dans l'enregistrement de produit</li>
+                        <li>✓ Commandes Shopify/POS se synchronisant correctement (vérifiez les erreurs d'importation)</li>
                     </ul>
+
+                    <div class="alert alert-success">
+                        <span class="alert-icon">✓</span>
+                        <div>
+                            <strong>Conseil :</strong> Consacrez seulement 5-10 minutes chaque matin au tableau de bord. Cette détection précoce prévient les ruptures de stock, les commandes manquées et les surprises de fin de mois.
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Section 8: Critical Rules -->
+            <!-- Section 13: Critical Rules -->
             <section class="section" id="critical-rules">
                 <div class="section-header">
-                    <h2>Règles Critiques (Critical Rules)</h2>
+                    <h2>Règles Critiques</h2>
                     <div class="section-toggle">▼</div>
                 </div>
                 <div class="section-content">
-                    <p>Ces règles doivent toujours être suivies pour éviter des erreurs coûteuses.</p>
+                    <p>Ces règles doivent toujours être suivies pour éviter les erreurs coûteuses et maintenir l'intégrité des données.</p>
 
                     <div class="alert alert-danger">
                         <span class="alert-icon">🔴</span>
                         <div>
-                            <strong>Règle 1: Vérifier le stock avant de vendre</strong><br>
-                            Avant de créer une SO (Sales Order), assurez-vous que le stock est disponible dans le bon entrepôt. Un stock non disponible crée des backlogs.
+                            <strong>Règle 1 : Distribution des Coûts = "Par Quantité de Base" (NON "Par Valeur")</strong><br>
+                            Chaque produit DOIT avoir la distribution des coûts définie sur "par quantité de base". L'utilisation de "par valeur" gonfle le COGS et distord l'analyse des marges. Vérifiez ce paramètre régulièrement, surtout pour les produits importés.
                         </div>
                     </div>
 
                     <div class="alert alert-danger">
                         <span class="alert-icon">🔴</span>
                         <div>
-                            <strong>Règle 2: Ne jamais modifier un SKU produit</strong><br>
-                            Les SKU doivent rester constants. Les modifier affecte tous les historiques. Si une correction est nécessaire, créez un nouveau produit.
+                            <strong>Règle 2 : JAMAIS Supprimer le Taux de Taxe 0%</strong><br>
+                            Conservez le taux de taxe de 0% dans Settings → Taxes. Il est essentiel pour les commandes POS/wholesale qui ne portent pas de taxe. Ajouter 20% et 5,5% pour Shopify c'est bien, mais NE SUPPRIMEZ JAMAIS le 0% par défaut.
                         </div>
                     </div>
 
                     <div class="alert alert-danger">
                         <span class="alert-icon">🔴</span>
                         <div>
-                            <strong>Règle 3: Enregistrer les motifs pour tous les ajustements</strong><br>
-                            Chaque ajustement de stock (Damage, Shrinkage, etc.) doit avoir un motif documenté. Cela assure la traçabilité.
+                            <strong>Règle 3 : Ne Jamais Créer de PO à partir d'une Commande Client (Bug de Commande en Retard)</strong><br>
+                            NE CLIQUEZ PAS sur "Create PO" dans une Commande Client. Cela crée une PO liée qui double les comptages d'inventaire. Créez les PO séparément dans le menu PO. Si vous faites cela accidentellement, utilisez Transaction Inquiry pour supprimer le doublon.
                         </div>
                     </div>
 
                     <div class="alert alert-danger">
                         <span class="alert-icon">🔴</span>
                         <div>
-                            <strong>Règle 4: Confirmer les réceptions rapidement</strong><br>
-                            Dès que le stock fournisseur est reçu, cliquez "Receive" dans la PO. Cela actualise les niveaux de stock en temps réel.
+                            <strong>Règle 4 : Vérifier le Stock Avant de Vendre</strong><br>
+                            Avant de créer une SO (ou d'accepter une commande Shopify), vérifiez que le stock est disponible dans le bon entrepôt. Le stock non disponible crée des arriérés et complique l'exécution.
                         </div>
                     </div>
 
                     <div class="alert alert-danger">
                         <span class="alert-icon">🔴</span>
                         <div>
-                            <strong>Règle 5: Utiliser les bons entrepôts</strong><br>
-                            Utilisez toujours le bon code d'entrepôt (CLICHY, GAITE, CHATLET, DEPOT_FEEL, etc.). Une mauvaise sélection crée des discordances.
+                            <strong>Règle 5 : Modifier en Lot les SKU Produits, Ne Pas Modifier Un par Un</strong><br>
+                            Si vous synchronisez les SKU Shopify dans Unleashed, utilisez la fonction Modification en Lot (Produits → Change Codes → Batch). C'est plus rapide et prévient les erreurs individuelles.
                         </div>
                     </div>
 
                     <div class="alert alert-danger">
                         <span class="alert-icon">🔴</span>
                         <div>
-                            <strong>Règle 6: Ne jamais supprimer une commande</strong><br>
-                            Si une commande est erronée, marquez-la "Cancelled" ou créez une note. Ne la supprimez jamais, car cela perd l'historique.
+                            <strong>Règle 6 : Enregistrer les Raisons pour Tous les Ajustements</strong><br>
+                            Chaque ajustement de stock (Damage, Shrinkage, Inventory Count, etc.) doit avoir une raison documentée. Cela garantit la traçabilité et la conformité d'audit.
                         </div>
                     </div>
 
                     <div class="alert alert-danger">
                         <span class="alert-icon">🔴</span>
                         <div>
-                            <strong>Règle 7: Vérifier les prix régulièrement</strong><br>
-                            Les prix d'achat et de vente doivent être à jour. Des prix obsolètes mènent à des marges incorrectes.
+                            <strong>Règle 7 : Confirmer les Réceptions Rapidement</strong><br>
+                            Dès que le stock du fournisseur est reçu, cliquez sur "Receive" dans la PO. Cela met à jour les niveaux de stock en temps réel et prévient les discordances d'inventaire.
                         </div>
                     </div>
 
                     <div class="alert alert-danger">
                         <span class="alert-icon">🔴</span>
                         <div>
-                            <strong>Règle 8: En cas de doute, contactez un manager</strong><br>
-                            Si quelque chose semble anormal (stock négatif, prix incohérent, transfert bloqué), n'essayez pas de corriger seul. Signalez-le immédiatement.
+                            <strong>Règle 8 : Utiliser les Codes d'Entrepôt Corrects</strong><br>
+                            Toujours utiliser le bon entrepôt (DEPOT_FEEL, CLICHY, GAITE, CHATELET, etc.). Une mauvaise sélection crée des discordances et casse les rapports.
                         </div>
                     </div>
 
-                    <div class="screenshot">
-                        <img src="images/01_dashboard.png" alt="Critical Rules Summary" class="clickable-img">
-                        <div class="screenshot-caption">Résumé des règles critiques / Summary of critical rules</div>
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Règle 9 : Ne Jamais Supprimer une Commande</strong><br>
+                            Si une commande est incorrecte, marquez-la comme "Cancelled" ou créez une note. Ne la supprimez jamais, car cela perd l'historique et rend l'audit impossible.
+                        </div>
                     </div>
 
-                    <h3 style="margin-top: 2rem; color: var(--primary);">En cas de problème</h3>
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Règle 10 : Vérifier les Prix Régulièrement</strong><br>
+                            Les prix d'achat et de vente doivent être à jour. Les prix obsolètes conduisent à des marges incorrectes et à des PO inexactes.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Règle 11 : Synchroniser les Taux de Taxe Shopify Avant d'Importer les Commandes</strong><br>
+                            Créez les taux de taxe de 20% et 5,5% dans Settings → Taxes AVANT d'importer les commandes Shopify. Sans taux de taxe correspondants, l'importation des commandes échoue.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Règle 12 : En Cas de Doute, Contactez un Responsable</strong><br>
+                            Si quelque chose semble anormal (stock négatif, prix incohérent, transfert bloqué, erreurs de synchronisation), ne tentez pas de corriger seul. Signalez-le immédiatement à votre responsable ou à l'équipe de mise en œuvre d'Unleashed.
+                        </div>
+                    </div>
+
+                    <h3>Tableau de Dépannage</h3>
                     <table>
                         <tr>
-                            <th>Problème (Problem)</th>
-                            <th>Solution (Solution)</th>
+                            <th>Problème</th>
+                            <th>Cause</th>
+                            <th>Solution</th>
+                        </tr>
+                        <tr>
+                            <td>Les commandes Shopify ne se synchronisent pas</td>
+                            <td>Taux de taxe manquants ou incorrects dans Settings</td>
+                            <td>Allez à Settings → Taxes. Ajoutez les taux de taxe 20% et 5,5%. Assurez-vous que la par défaut de 0% n'est pas supprimée. Réimportez les commandes.</td>
+                        </tr>
+                        <tr>
+                            <td>COGS semble gonflé / Les marges sont erronées</td>
+                            <td>Méthode de distribution des coûts définie sur "par valeur" au lieu de "par quantité de base"</td>
+                            <td>Vérifiez chaque produit : Produits → [Produit] → Méthode de Distribution des Coûts. Changez en "par quantité de base". Recalculez.</td>
+                        </tr>
+                        <tr>
+                            <td>Le comptage des stocks doublé / Backordered avec inventaire doublé</td>
+                            <td>La PO a été créée depuis la Commande Client (bug de commande en retard)</td>
+                            <td>Utilisez Transaction Inquiry pour trouver le mouvement de stock dupliqué. Supprimez ou inversez-le. Ne créez jamais de PO depuis la SO.</td>
                         </tr>
                         <tr>
                             <td>Stock négatif (-1, -5, etc.)</td>
-                            <td>Créer un ajustement (Adjustment) pour corriger. Vérifier l'historique des mouvements.</td>
+                            <td>Commandes completées sans inventaire suffisant</td>
+                            <td>Créez un Ajustement de Stock avec la raison "Inventory Count" pour corriger. Vérifiez l'historique des mouvements pour comprendre la cause.</td>
                         </tr>
                         <tr>
-                            <td>Commande bloquée / Cannot save</td>
-                            <td>Vérifier que tous les champs obligatoires sont remplis. Contacter support si l'erreur persiste.</td>
+                            <td>Commande bloquée / Ne peut pas enregistrer</td>
+                            <td>Champs obligatoires manquants ou erreur de validation de données</td>
+                            <td>Vérifiez que tous les champs obligatoires sont remplis. Vérifiez les fautes de frappe dans les codes client/produit. Contactez le support si cela persiste.</td>
                         </tr>
                         <tr>
-                            <td>Transfert non reçu / Stuck in transit</td>
-                            <td>Aller à la section Warehouse Transfers, trouver le transfert, cliquer "Receive" pour le finaliser.</td>
+                            <td>Transfert non reçu / Bloqué en transit</td>
+                            <td>Transfert d'Entrepôt non finalisé</td>
+                            <td>Allez à Warehouse Transfers, trouvez le transfert, cliquez sur "Receive" pour finaliser. Vérifiez que les quantités correspondent.</td>
                         </tr>
                         <tr>
-                            <td>Stock différent d'un inventaire physique</td>
-                            <td>Créer un ajustement avec motif "Inventory Count" et enregistrer la différence.</td>
+                            <td>Le stock diffère du comptage physique</td>
+                            <td>Ventes non enregistrées, dommage, vol ou erreur de comptage</td>
+                            <td>Créez un Ajustement de Stock avec la raison "Inventory Count" pour enregistrer la différence. Enquêtez sur la cause séparément.</td>
                         </tr>
                         <tr>
-                            <td>Fournisseur introuvable</td>
-                            <td>Vérifier l'orthographe. Si absent, créer un nouveau fournisseur via Products → Suppliers.</td>
+                            <td>Fournisseur non trouvé</td>
+                            <td>Fournisseur non créé dans Unleashed</td>
+                            <td>Vérifiez l'orthographe. S'il manque, créez un nouveau fournisseur : Menu → Suppliers → + New Supplier. Définissez l'entrepôt par défaut et le délai d'approvisionnement.</td>
+                        </tr>
+                        <tr>
+                            <td>Client non trouvé</td>
+                            <td>L'enregistrement client n'existe pas</td>
+                            <td>Créez le client : Menu → Customers → + New Customer. Utilisez des codes simples comme "SHOPIFY", "GAITE-POS", "ACME-WHOLESALE".</td>
+                        </tr>
+                        <tr>
+                            <td>Décalage SKU Shopify (les produits ne correspondent pas)</td>
+                            <td>Le SKU Shopify ne correspond pas au code de produit Unleashed</td>
+                            <td>Utilisez Produits → Change Codes → Batch pour synchroniser les SKU Shopify. Téléchargez le modèle, importez depuis l'export Shopify, mettez à jour en masse.</td>
                         </tr>
                     </table>
+
+                    <div class="screenshot">
+                        <img src="images/01_dashboard.png" alt="Critical Rules Summary" class="clickable-img">
+                        <div class="screenshot-caption">Résumé des règles critiques</div>
+                    </div>
                 </div>
             </section>
 
@@ -1019,7 +1802,7 @@
     <div class="lightbox" id="lightbox">
         <div class="lightbox-content">
             <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-            
+            <img id="lightboxImg" src="" alt="Enlarged image">
         </div>
     </div>
 
@@ -1066,8 +1849,10 @@
                 this.classList.add('active');
                 const sectionId = this.getAttribute('href').substring(1);
                 const section = document.getElementById(sectionId);
-                section.classList.remove('collapsed');
-                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (section) {
+                    section.classList.remove('collapsed');
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             });
         });
 
