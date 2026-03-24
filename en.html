@@ -621,14 +621,25 @@
                     <p>Products in Unleashed include all items sold by Feel My Skin: serums, creams, sets, etc. Each product has multiple tabs containing pricing, supplier info, cost data, and inventory tracking. FMS uses the <code>FMSK_</code> prefix for all product codes (e.g., FMSK_11691).</p>
 
                     <div class="step">
-                        <h4>Creating a New Product</h4>
+                        <h4>Creating a New Product (Shopify-First Workflow)</h4>
+                        <p>At FMS, new products are created on Shopify first, then registered in Unleashed:</p>
                         <ol style="margin-left: 1rem;">
-                            <li>Go to <code>Inventory → Products → Add Product</code></li>
-                            <li>Enter a product code using <code>FMSK_XXXXX</code> format</li>
-                            <li>Enter a product description</li>
+                            <li><strong>Create the product on Shopify first</strong> — add name, images, price</li>
+                            <li>Shopify generates a product code — copy this code</li>
+                            <li>Go to <code>Inventory → Products → Add Product</code> in Unleashed</li>
+                            <li>Enter the Shopify-generated code as the product code (FMSK_XXXXX format)</li>
+                            <li>Enter the product description</li>
+                            <li>The barcode can be added later — once the product physically arrives at the depot, scan it and add the barcode to the product record</li>
                             <li>By default, products are set as sellable with diminishing type</li>
                             <li>Save the product</li>
                         </ol>
+
+                        <div class="alert alert-warning">
+                            <span class="alert-icon">⚠</span>
+                            <div>
+                                <strong>Important:</strong> Always create the product on Shopify first to get the code. Do not create products in Unleashed first — this causes SKU mismatches with Shopify sync.
+                            </div>
+                        </div>
                     </div>
 
                     <div class="screenshot">
@@ -1327,11 +1338,47 @@
                     <div class="section-toggle">▼</div>
                 </div>
                 <div class="section-content">
-                    <p>Adjustments allow you to correct counting errors, record breakages, or stock losses. They're essential for maintaining accurate inventory levels.</p>
+                    <p>Unleashed has two tools for correcting inventory: <strong>Stock Count</strong> and <strong>Stock Adjustment</strong>. Understanding the difference is critical.</p>
+
+                    <h3>Stock Count vs Stock Adjustment</h3>
 
                     <div class="step">
-                        <h4>Step 1: Access Adjustments</h4>
-                        <p>Menu → <code>Stock</code> → <code>Stock Adjustments</code> to view all adjustments.</p>
+                        <h4>Stock Count (Full Inventory Reset)</h4>
+                        <p>Use Stock Count when you need to <strong>reset and re-enter all stock from zero</strong> for a warehouse — for example, when opening a new location or doing a full physical inventory:</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Go to <code>Inventory → Stock Count → Add Count</code></li>
+                            <li>Name the count (e.g., "Inventory March 2026")</li>
+                            <li>Select the warehouse</li>
+                            <li>Add products manually, via barcode scanning, or via <strong>Import</strong> (upload an Excel template)</li>
+                            <li>Enter the actual quantities for each product</li>
+                            <li>Save and complete — the system replaces old quantities with your new counts</li>
+                        </ol>
+
+                        <div class="alert alert-success">
+                            <span class="alert-icon">✓</span>
+                            <div>
+                                <strong>Tip:</strong> To get a pre-filled template, go to <code>Reports → Stock on Hand</code>, filter by warehouse, and export to XLS. This gives you all product codes with current quantities — edit the quantities column and re-import into Stock Count.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <h4>Stock Adjustment (Individual Corrections)</h4>
+                        <p>Use Stock Adjustment when you need to <strong>correct specific products</strong> without resetting everything — for example, expired items, damaged goods, or returns from boutiques:</p>
+                        <ol style="margin-left: 1rem;">
+                            <li>Go to <code>Inventory → Stock Adjustments → Add Adjustment</code></li>
+                            <li>Select the <strong>Warehouse</strong> (very important — choose the right one first!)</li>
+                            <li>Add the product(s) you need to adjust</li>
+                            <li>Enter the quantity: <strong>positive = add stock</strong>, <strong>negative = remove stock</strong></li>
+                            <li>Select a reason and add notes</li>
+                            <li>Save</li>
+                        </ol>
+                        <p>Example: 5 creams expired at DEPOT_FEEL → select DEPOT_FEEL, find the product, enter <strong>-5</strong>, reason: "Damage".</p>
+                    </div>
+
+                    <div class="screenshot">
+                        <img src="images/12_stock_adjustment_detail.png" alt="Stock Adjustments" class="clickable-img">
+                        <div class="screenshot-caption">Stock adjustments</div>
                     </div>
 
                     <div class="screenshot">
@@ -1442,7 +1489,13 @@
                         <ol style="margin-left: 1rem;">
                             <li>Select the <strong>Source Warehouse</strong> (e.g., DEPOT_FEEL)</li>
                             <li>Select the <strong>Destination Warehouse</strong> (e.g., CLICHY store)</li>
-                            <li>Add <strong>product lines</strong> with quantities to transfer</li>
+                            <li>Add products — you can type the <code>FMSK_</code> code, or use <strong>barcode scanning</strong>:
+                                <ul style="margin-left: 1rem;">
+                                    <li>Click the <strong>barcode scan</strong> button</li>
+                                    <li>Scan all products (multi-scan supported), then click <code>Add</code></li>
+                                    <li>Enter quantities manually for each scanned product</li>
+                                </ul>
+                            </li>
                             <li>Click <code>Save</code></li>
                         </ol>
                     </div>
@@ -1493,7 +1546,7 @@
 
                     <div class="step">
                         <h4>Stock on Hand Inquiry</h4>
-                        <p>View current stock levels across all warehouses:</p>
+                        <p>View current stock levels across all warehouses. You can also <strong>export to XLS</strong> to get a spreadsheet of all products and quantities for a specific warehouse — useful for inventory counts and stock count imports.</p>
                         <ol style="margin-left: 1rem;">
                             <li>Menu → <code>Reports</code> → <code>Stock on Hand Inquiry</code></li>
                             <li>Filter by:
@@ -1912,7 +1965,15 @@
                     <div class="alert alert-danger">
                         <span class="alert-icon">🔴</span>
                         <div>
-                            <strong>Rule 12: When in Doubt, Contact a Manager</strong><br>
+                            <strong>Rule 12: Never Validate Without Confirming First</strong><br>
+                            When learning the system, <strong>practice without clicking Complete or Validate</strong>. It is always better not to validate than to validate and discover you cannot undo it. If you are unsure, ask your manager before confirming any transaction — POs, stock adjustments, transfers, and sales orders. You can save as Parked/Draft and come back to it.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger">
+                        <span class="alert-icon">🔴</span>
+                        <div>
+                            <strong>Rule 13: When in Doubt, Contact a Manager</strong><br>
                             If something seems abnormal (negative stock, inconsistent price, stuck transfer, sync errors), do not try to fix it alone. Report it immediately to your manager or the Unleashed implementation team.
                         </div>
                     </div>
